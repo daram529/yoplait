@@ -1,5 +1,5 @@
 <template>
-    <div class="route">
+    <div class="story">
         <div class="item">
             
         </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'route',
+  name: 'story',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

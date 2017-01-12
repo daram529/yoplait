@@ -1,5 +1,5 @@
 <template>
-   <div class="grandline">
+   <div class="stories">
     <!-- Page Content -->
     <main class="content">
     <div class="ui container">
@@ -13,7 +13,7 @@
             </div>
             <div class="ui divider"></div>
             <div class="row">
-                <Route></Route>
+                <Story></Story>
             </div>
         </div>
     </div>
@@ -37,11 +37,11 @@
 
 
 <script>
-import Route from './Route'
+import Story from './Story'
 export default {
-  name: 'grandline',
+  name: 'stories',
   components: {
-    Route
+    Story
   },
   data () {
     return {
