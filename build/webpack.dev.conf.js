@@ -31,6 +31,29 @@ module.exports = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
+    new webpack.ProvidePlugin({
+      // jquery
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      // semantic-ui | TODO : is usefull since we import it
+      semantic: 'semantic-ui-css',
+      Semantic: 'semantic-ui-css',
+      'semantic-ui': 'semantic-ui-css',
+      // Moment
+      moment: 'moment',
+      Moment: 'moment',
+      // Numeral
+      numeral: 'numeral',
+      Numeral: 'numeral',
+      // lodash
+      '_': 'lodash',
+      'lodash': 'lodash',
+      'Lodash': 'lodash',
+      // stapes
+      stapes: 'stapes',
+      Stapes: 'stapes'
+    }),
     new FriendlyErrors()
   ]
 })
