@@ -12,7 +12,12 @@
                 </h2>
             </div>
             <div class="ui divider"></div>
-            <div class="row">
+            <div class="row" id="storyBoard">
+                <StoryCard></StoryCard>
+                <StoryCard></StoryCard>
+                <StoryCard></StoryCard>
+                <StoryCard></StoryCard>
+                <StoryCard></StoryCard>
                 <StoryCard></StoryCard>
             </div>
         </div>
@@ -49,6 +54,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>
@@ -57,15 +63,17 @@ body {
   height: 100%;
   flex-direction: column;
 }
-/*footer {
-  padding-bottom: 1.5em !important;
-}*/
+
 main.content {
-    height:1000px;
+  padding-top:10px;
+  height:1000px;
   background-color: #f2f2f2;
   flex: 1 0 auto;
   width: 100%;
 }
+/*footer {
+  padding-bottom: 1.5em !important;
+}*/
 
  /*Footer  
 footer.ui.segment {
@@ -76,6 +84,11 @@ footer > .ui.divider {
   color: rgba(34, 36, 38, 0.15);
 }*/
 
+#storyBoard{
+  padding-left:20px;
+  padding-right:20px;
+}
+
 h2 {
     margin-left:100px;
 }
@@ -85,10 +98,23 @@ h2 {
     bottom:0;
 }
 
+.container {
+  margin-top: 50px;
+}
+
 /* Full Grid */
 .ui.full.grid {
   background-color: #ffffff;
+  border : 1px solid rgba(34,36,38,0.15);
+  /*border-top : 1px solid rgba(34,36,38,0.15);
   border-left: 1px solid rgba(34, 36, 38, 0.15);
-  border-right: 1px solid rgba(34, 36, 38, 0.15);
+  border-right: 1px solid rgba(34, 36, 38, 0.15);*/
 }
+
+.storycard {
+  padding-left:5px;
+  padding-right:5px;
+  padding-bottom:10px;
+}
+
 </style>

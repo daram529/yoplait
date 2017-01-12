@@ -9,7 +9,7 @@
 <script>
 import BarMenu from './components/BarMenu'
 import Stories from './components/Stories'
-/* import $ from 'jquery' */
+// import $ from 'jquery'
 export default {
   name: 'app',
   components: {
