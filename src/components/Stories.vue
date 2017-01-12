@@ -13,7 +13,7 @@
             </div>
             <div class="ui divider"></div>
             <div class="row">
-                <Story></Story>
+                <StoryCard></StoryCard>
             </div>
         </div>
     </div>
@@ -37,11 +37,11 @@
 
 
 <script>
-import Story from './Story'
+import StoryCard from './StoryCard'
 export default {
   name: 'stories',
   components: {
-    Story
+    StoryCard
   },
   data () {
     return {
