@@ -1,20 +1,84 @@
 <template>
   <div id="app">
-
     <BarMenu></BarMenu>
-    <Stories></Stories>
+    <div class="ui container">
+      <div class="ui segment" id="main">
+        <div class="ui right dividing rail">
+          <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onDrop">
+            Scrapbook should be placed here.
+            <ChapterCard v-for="ch in scrapBookTest" :chapter="ch"></ChapterCard>
+          </div>
+        </div>
+      <Chapters :chapter-list="chaptersTest" :on-drag-start="onDragStart"></Chapters>
+    </div>
   </div>
 </template>
 
 <script>
 import BarMenu from './components/BarMenu'
-import Stories from './components/Stories'
+// import Stories from './components/Stories'
+import Chapters from './components/Chapters'
+import ChapterCard from './components/ChapterCard'
 /* import $ from 'jquery' */
 export default {
   name: 'app',
   components: {
     BarMenu,
-    Stories
+    Chapters,
+    ChapterCard
+  },
+  data: function () {
+    return {
+      chaptersTest: [{
+        chapterLocation: 'Busan',
+        chapterDescription: 'Dynamic Busan',
+        chapterPhotoList: ['./static/busan.jpg']
+      },
+      {
+        chapterLocation: 'Busan',
+        chapterDescription: 'Dynamic Busan',
+        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
+      },
+      {
+        chapterLocation: 'Busan',
+        chapterDescription: 'Dynamic Busan',
+        chapterPhotoList: ['./static/busan.jpg', './static/busan.jpg']
+      },
+      {
+        chapterLocation: 'Busan',
+        chapterDescription: 'Dynamic Busan',
+        chapterPhotoList: ['./static/busan.jpg', './static/busan.jpg']
+      },
+      {
+        chapterLocation: 'Busan',
+        chapterDescription: 'Dynamic Busan',
+        chapterPhotoList: ['./static/busan.jpg', './static/busan.jpg']
+      }],
+      scrapBookTest: [],
+      draggingChapter: {},
+      active: false
+    }
+  },
+  /* eslint-disable */
+  mounted: function () {
+    console.log($('ui.sticky'))
+    console.log($(this.$el).find('#sticker'))
+    // $(this.$el).find('#sticker')
+    $('.ui.sticky').sticky({
+      context: '#main'
+    })
+  },
+  methods: {
+    onDrop: function (ev) {
+      ev.preventDefault();
+      console.log(ev.target)
+      console.log(ev.dataTransfer.getData('text/plain'))
+      this.scrapBookTest.push(this.draggingChapter)
+      this.active = true
+    },
+    onDragStart: function (chapter) {
+      this.draggingChapter = chapter
+    }
   }
 }
 </script>
