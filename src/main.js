@@ -7,6 +7,11 @@ import Vue from 'vue'
 import App from './App'
 import Vuefire from 'vuefire'
 
+// var Vue = require('vue');
+// var vueFirebaseAuth = require('vueui-firebase-auth');
+// Vue.use(vueFirebaseAuth);
+
+
 Vue.use(Vuefire)
 
 /* eslint-disable no-new */

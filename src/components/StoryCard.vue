@@ -1,43 +1,37 @@
 <template>
     <div class="storycard" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-        <div class="ui card">
+        <div class="ui fluid card">
             <div class="content">
               <div>
               <h3 class = "title">
-                방콕 여행기
+                {{story.storyTitle}}
               </h3>
               </div>
               <div>
               <h5 class = "time">
-                2016/08/15 (2박3일)
+                {{story.storyDate}}
               </h5>
               </div>
               
               <!--여기에 제목이랑 날짜 필요-->
             </div>
-            <div class="blurring dimmable image">
-              <div class="ui inverted dimmer">
+            <div class="ui blurring dimmable small centered image">
+              <div class="ui inverted dimmer" :id="'imageDimmer' + index">
                 <div class="content">
                 </div>
               </div>
-              <img src="/static/images/singapore.jpg">
+              <img class="ui image" :src="story.storyPhoto">
             </div>
-            <div class="content">
+            <div class="content" style="border:none;">
               <ol>
-                <li>돈므앙 공항</li>
-                <li>담넌사두억 수상시장</li>
-                <li>짜뚜짝 시장</li>
-                <li>카오산로드</li>
-                <li>하이야트 호텔</li>
-                <li>파타야</li>
-                <li>알카자쇼</li>
-                <li>돈므앙 공항</li>
+                <li v-for="chapter in story.chapterList">
+                  {{chapter}}
+                </li>
               </ol>
-              <!--Chapter List들-->
             </div>
             <div class="extra content">
               <div class="name">
-                Minkyu Yun
+                {{story.storyName}}
               </div>
             </div>
         </div>
@@ -54,19 +48,20 @@ export default {
     }
   },
   mounted: function () {
-    $('.ui .image').dimmer({
+    $('#imageDimmer'+this.index).dimmer({
       on: 'hover',
       opacity: '0.05'
     })
   },
   methods: {
     onMouseOver: function () {
-      $('.ui .image').dimmer('show')
+      $('#imageDimmer'+this.index).dimmer('show')
     },
     onMouseLeave: function () {
-      $('.ui .image').dimmer('hide')
+      $('#imageDimmer'+this.index).dimmer('hide')
     }
-  }
+  },
+  props: ['story', 'index']
 }
 </script>
 
