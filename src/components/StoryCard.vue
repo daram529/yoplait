@@ -1,6 +1,6 @@
 <template>
-    <div class="storycard">
-        <div class="ui card" href="#">
+    <div class="storycard" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
+        <div class="ui card">
             <div class="content">
               <div>
               <h3 class = "title">
@@ -16,11 +16,8 @@
               <!--여기에 제목이랑 날짜 필요-->
             </div>
             <div class="blurring dimmable image">
-              <div class="ui dimmer">
+              <div class="ui inverted dimmer">
                 <div class="content">
-                  <div class="center">
-                    <div class="ui inverted button">Add Friend</div>
-                  </div>
                 </div>
               </div>
               <img src="/static/images/singapore.jpg">
@@ -48,7 +45,7 @@
 </template>
 
 <script>
-import $ from 'jQuery'
+/* eslint-disable */
 export default {
   name: 'storycard',
   data () {
@@ -56,15 +53,29 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  mounted () {
+  mounted: function () {
     $('.ui .image').dimmer({
-      on: 'hover'
+      on: 'hover',
+      opacity: '0.05'
     })
+  },
+  methods: {
+    onMouseOver: function () {
+      $('.ui .image').dimmer('show')
+    },
+    onMouseLeave: function () {
+      $('.ui .image').dimmer('hide')
+    }
   }
 }
 </script>
 
 <style scoped>
+.ui.card:hover {
+  border: 1px solid #283593;
+  cursor: pointer;
+}
+
 .ui .content{
   padding:10px;
   text-align: left;
