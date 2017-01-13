@@ -1,5 +1,5 @@
 <template>
-  <div class="ui modal" :id= "'modal' + index">
+  <div class="ui modal" :id= "'modal' + (contentVisible ? '' : 'scrap') + index">
     <!--<i class="close icon"></i>-->
     <div class="header">
       Details
@@ -32,7 +32,7 @@
 <script>
 export default {
   name: 'chapterdetail',
-  props: ['chapter', 'index'],
+  props: ['chapter', 'index', 'contentVisible'],
   data: function () {
     return {imageIndex: 0}
   },
@@ -51,9 +51,11 @@ export default {
   },
   /* eslint-disable */
   mounted: function () {
-    $('#imageDimmer'+this.index).dimmer({
-      on: 'hover'
-    })
+    if(this.contentVisible){
+      $('#imageDimmer'+this.index).dimmer({
+        on: 'hover'
+      })
+    }
   }
 }
 </script>

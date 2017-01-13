@@ -41,7 +41,8 @@
 
 
 <script>
-import $ from 'jQuery'
+/* eslint-disable */
+// import $ from 'jQuery'
 import StoryCard from './StoryCard'
 import ScrapBook from './ScrapBook'
 export default {

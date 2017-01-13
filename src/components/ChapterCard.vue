@@ -1,15 +1,16 @@
 <template>
-  <div class="ui raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
+  <div class="ui fluid raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
     <!--<div class="ui text container">-->
-      <div class="content">
-        <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
-      </div>
-    <div class="ui center aligned content"> 
+    <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
+    <div class="content">
+      <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
+    </div>
+    <div v-if="contentVisible" class="ui center aligned container"> 
       {{chapter.chapterDescription}} 
     </div>
-    <div class="ui extra content">
+    <div v-if="contentVisible" class="ui extra content">
       <div class="ui segment" :class="{stacked: chapter.chapterPhotoList.length > 1}">
-        <div class="ui dimmable medium image">
+        <div class="ui dimmable image">
         <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
           <div class="content">
             <div class="center">
@@ -18,10 +19,10 @@
             </div>
           </div>
         </div>
-        <img :src="chapter.chapterPhotoList[curImageIdx]">
+        <img :src="this.chapter.chapterPhotoList[curImageIdx]">
       </div>
     </div>
-    <ChapterDetail :chapter="chapter" :index="index"></ChapterDetail>
+    
   </div>
 </template>
 
@@ -31,31 +32,41 @@
 import ChapterDetail from './ChapterDetail'
 export default {
   name: 'chaptercard',
-  props: ['chapter', 'index', 'onDragStart'],
+  props: ['chapter', 'index', 'onDragStart', 'contentVisible'],
   components: {
     ChapterDetail
   },
   methods: {
     onClick: function () {
-      $('#modal'+this.index).modal('show')
+      $('#modal'+ (this.contentVisible ? '' : 'scrap') + this.index).modal('show')
     },
     onDS: function (ev) {
-      console.log(ev.target)
+      console.log(ev)
+      ev.dataTransfer.dropEffect = 'copy'
+      ev.dataTransfer.effectAllowed = 'copy'
       ev.dataTransfer.setData('text/plain', ev.target.id)
-      this.onDragStart(this.chapter)
+      this.onDragStart(this.index)
       console.log(ev.dataTransfer)
     },
     onLeftClick: function () {
-      this.imageIndex -= 1
+      // console.log(this.curImageIndex)
+      // this.imageIndex -= 1
+      console.log(this)
+      this.imageIndex = (this.imageIndex - 1 + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length
     },
     onRightClick: function () {
-      this.imageIndex += 1
+      // this.imageIndex += 1
+      this.imageIndex = (this.imageIndex + 1) % this.chapter.chapterPhotoList.length
     },
     onMouseOver: function () {
-      $('#imageDimmer'+this.index).dimmer('show')
+      if(this.contentVisible){
+        $('#imageDimmer'+this.index).dimmer('show')
+      }
     },
     onMouseLeave: function () {
-      $('#imageDimmer'+this.index).dimmer('hide')
+      if(this.contentVisible){
+        $('#imageDimmer'+this.index).dimmer('hide')
+      }
     }
   },
   data: function () {
@@ -63,16 +74,16 @@ export default {
   },
   computed: {
     curImageIdx: function () {
-      return (this.imageIndex % this.chapter.chapterPhotoList.length)
+      return ((this.imageIndex + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length)
     }
   },
   /* eslint-disable */
   mounted: function () {
-    $('#card'+this.index).on('hover', function () {
-      $('#imageDimmer'+this.index).dimmer({
-        on: 'hover'
-      })
-    })
+    // $('#card'+this.index).on('hover', function () {
+    //   $('#imageDimmer'+this.index).dimmer({
+    //     on: 'hover'
+    //   })
+    // })
 
   }
 }

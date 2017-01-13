@@ -241,7 +241,7 @@
 </template>
 
 <script>
-import $ from 'jQuery'
+// import $ from 'jQuery'
 export default {
   name: 'storiestest',
   data () {
