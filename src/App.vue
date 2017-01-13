@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <BarMenu></BarMenu>
-<<<<<<< HEAD
     <main class="ui container" id="content">
       <Stories></Stories>
     </main>
     <StoriesTest></StoriesTest>
-=======
-    <div class="ui container">
+    <!--<div class="ui container">
       <div class="ui segment" id="main">
         <div class="ui right dividing rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onDrop">
@@ -16,8 +14,7 @@
           </div>
         </div>
       <Chapters :chapter-list="chaptersTest" :on-drag-start="onDragStart"></Chapters>
-    </div>
->>>>>>> 76ef7a54fddf7d31774b752a9cfc0deacd660836
+    </div>-->
   </div>
 </template>
 
@@ -27,26 +24,13 @@ import BarMenu from './components/BarMenu'
 import Chapters from './components/Chapters'
 import ChapterCard from './components/ChapterCard'
 import Stories from './components/Stories'
-<<<<<<< HEAD
 import ScrapBook from './components/ScrapBook'
-import StoriesTest from './components/StoriesTest'
-=======
->>>>>>> 76ef7a54fddf7d31774b752a9cfc0deacd660836
 export default {
   name: 'app',
   components: {
     BarMenu,
-<<<<<<< HEAD
     Stories,
     ScrapBook,
-    StoriesTest
-  },
-  mounted: function () {
-    $('.ui.sticky')
-    .sticky({
-      context: '#app'
-    })
-=======
     Chapters,
     ChapterCard,
     Stories
@@ -103,7 +87,6 @@ export default {
     onDragStart: function (chapter) {
       this.draggingChapter = chapter
     }
->>>>>>> 76ef7a54fddf7d31774b752a9cfc0deacd660836
   }
 }
 </script>
