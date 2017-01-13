@@ -1,7 +1,7 @@
 <template>
     <div class="barmenu">
         <!--top fixed-->
-        <div class="ui grid huge inverted menu">
+        <div class="ui grid huge inverted top fixed menu">
             <a class="one wide column item">
                 Home(Logo)
             </a>

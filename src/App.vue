@@ -16,16 +16,16 @@
 
 <script>
 import BarMenu from './components/BarMenu'
-// import Stories from './components/Stories'
 import Chapters from './components/Chapters'
 import ChapterCard from './components/ChapterCard'
-/* import $ from 'jquery' */
+import Stories from './components/Stories'
 export default {
   name: 'app',
   components: {
     BarMenu,
     Chapters,
-    ChapterCard
+    ChapterCard,
+    Stories
   },
   data: function () {
     return {
