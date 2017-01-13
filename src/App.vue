@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <BarMenu></BarMenu>
-<<<<<<< HEAD
     <!--<main class="ui container" id="content">
       <Stories></Stories>
     </main>
     <StoriesTest></StoriesTest>-->
-    <div class="ui container" id="content">
-=======
+    <!--<div class="ui container" id="content">-->
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
         <Stories :story-list="storiesList"></Stories>
@@ -20,18 +18,17 @@
     </main>
 
     <!--<div class="ui container">
->>>>>>> 5b9b49fe478d827f33249bd568057fd3d4f7f38d
       <div class="ui segment" id="main">
         <div class="ui right dividing rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onDrop">
-            <!--<div class="ui grid ">-->
+            <div class="ui grid ">
             Scrapbook should be placed here.
               <ChapterCard v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onDragRemove"></ChapterCard>
-            <!--</div>-->
+            </div>
           </div>
         </div>
       <Chapters :chapter-list="chaptersTest" :on-drag-start="onDragStart"></Chapters>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -156,16 +153,13 @@ export default {
     console.log($(this.$el).find('#sticker'))
     // $(this.$el).find('#sticker')
     $('.ui.sticky').sticky({
-<<<<<<< HEAD
-      offset: 55,
-      bottomOffset: 50,
-      context: '#main',
-      observeChanges: true
-=======
+      // offset: 55,
+      // bottomOffset: 50,
+      // context: '#main',
+      // observeChanges: true
       context: '#two',
       offset: 55,
       bottomOffset: 50
->>>>>>> 5b9b49fe478d827f33249bd568057fd3d4f7f38d
     })
   },
   methods: {
@@ -211,9 +205,6 @@ export default {
 
 #content {
   padding-top:50px;
-<<<<<<< HEAD
-  /*width:80%;*/
-=======
   width:60%;
   height:100%;
 }
@@ -225,7 +216,6 @@ export default {
   padding:0px;
   border:0;
   box-shadow: none;
->>>>>>> 5b9b49fe478d827f33249bd568057fd3d4f7f38d
 }
 
 body {
