@@ -3,7 +3,7 @@
     <!-- Page Content -->
     <div class="ui container" id="storyCollection">
       <!--ui relaxed divided padded full center aligned grid -->
-        <div class="ui relaxed divided padded full center aligned grid">
+        <div class="ui relaxed padded full center aligned grid">
             <div class="row" id="test">
                 <h2 class="ui header">
                     <div class="content">
@@ -12,15 +12,24 @@
                 </h2>
             </div>
             <div class="ui divider"></div>
-            <div class="row" id="storyBoard">
-                <StoryCard></StoryCard>
-                <StoryCard></StoryCard>
-                <StoryCard></StoryCard>
-                <StoryCard></StoryCard>
-                <StoryCard></StoryCard>
+            <div class="five column row" id="storyBoard">
+              <div class="column" style="padding:0;">
+                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 0" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+              </div>
+              <div class="column" style="padding:0;">
+                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 1" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+              </div>
+              <div class="column" style="padding:0;">
+                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 2" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+              </div>
+              <div class="column" style="padding:0;">
+                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 3" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+              </div>
+              <div class="column" style="padding:0;">
+                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 4" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+              </div>
             </div>
         </div>
-        <ScrapBook></ScrapBook>
     </div>
 
      <!--Footer 
@@ -41,14 +50,12 @@
 
 
 <script>
-import $ from 'jQuery'
+/* eslint-disable */
 import StoryCard from './StoryCard'
-import ScrapBook from './ScrapBook'
 export default {
   name: 'stories',
   components: {
-    StoryCard,
-    ScrapBook
+    StoryCard
   },
   data () {
     return {
@@ -60,7 +67,8 @@ export default {
     .sticky({
       context: '#app'
     })
-  }
+  },
+  props: ['storyList']
 }
 
 </script>
@@ -69,12 +77,20 @@ export default {
 
 #storyCollection{
   margin-top: 20px;
+  padding:0px;
 }
 
 #storyBoard{
-  padding-left:20px;
-  padding-right:20px;
+  padding-left:10px;
+  padding-right:10px;
 }
+
+.column{
+  padding:0px;
+  box-shadow:0;
+}
+
+#storyboard:nth-child(2n+0) {float:right;}
 
 .ui.full.grid #test {
   padding-bottom:0px;
