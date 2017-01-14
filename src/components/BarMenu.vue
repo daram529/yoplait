@@ -2,16 +2,16 @@
     <div class="barmenu">
         <!--top fixed-->
         <div class="ui grid huge inverted top fixed menu">
-            <a class="one wide column item">
+            <a class="one wide column item" v-on:click="currentViewChange('Stories')">
                 Home(Logo)
             </a>
             <div class="eleven wide column item">
                 <div class="ui fluid left icon input">
-                <input type="text" placeholder="Search...">
+                <input type="text" :value="value" @input="$emit('input', $event.target.value)" placeholder="Search...">
                 <i class="search icon"></i>
                 </div>
             </div>
-            <a class="two wide column item">
+            <a class="two wide column item" v-on:click="currentViewChange('CreateStory')">
                 여행 글 쓰러 가기
             </a>
             <div class="two wide column right item">
@@ -36,10 +36,15 @@
 <script>
 export default {
   name: 'barmenu',
-  props: ['isLoggedIn', 'onLoginClick', 'onSignOutClick', 'userName'],
+  props: ['isLoggedIn', 'onLoginClick', 'onSignOutClick', 'userName', 'currentViewChange', 'value'],
   data: function () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  computed: {
+    updateString: function (searchString) {
+      this.$emit('input', searchString)
     }
   }
 }

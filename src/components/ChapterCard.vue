@@ -1,10 +1,5 @@
 <template>
-  <!--<div class="chapterCard">
-    <div v-if="!contentVisible" class="upperDroppableZone" v-on:dragover.prevent v-on:drop="onUpperDrop">
-      <br/>
-    </div>-->
   <div class="ui fluid raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-    <!--<div class="ui text container">-->
     <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
     <div class="content">
       <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
@@ -14,7 +9,7 @@
     </div>
     <div v-if="contentVisible" class="ui extra content">
       <div class="ui segment" :class="{stacked: chapter.chapterPhotoList.length > 1}">
-        <div class="ui dimmable image">
+        <div class="ui dimmable small centered image">
         <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
           <div class="content">
             <div class="center">

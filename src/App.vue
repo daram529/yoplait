@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <BarMenu :isLoggedIn = "isLoggedIn" :on-login-click="onLoginClick" :on-sign-out="onSignOutClick" :user-name="user.displayName"></BarMenu>
+    <BarMenu :filtered-stories = "filteredStories" v-model = "searchString" :current-view-change = "currentViewChange" :is-logged-in = "isLoggedIn" :on-login-click="onLoginClick" :on-sign-out="onSignOutClick" :user-name="user.displayName"></BarMenu>
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
-        <Stories v-if="currentView == 'Stories'" :story-list="storiesList" :onClick="onStoryClick"></Stories>
+        <Stories v-if="currentView == 'Stories'" :story-list="filteredStories" :onClick="onStoryClick"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :chapter-list="chaptersTest" :on-drag-start="onScrapDragStart"></Chapters>
         <CreateStory v-else-if="currentView == 'CreateStory'" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" ></CreateStory>
         <div class="ui right rail">
@@ -64,19 +64,16 @@ export default {
     BarMenu,
     Chapters,
     ChapterCard,
-<<<<<<< HEAD
-    Stories
-=======
     Stories,
     CreateStory
   },
   firebase: {
     story: storyRef
->>>>>>> 4c8b4938f35401decdd0beb0a96d745027e89b23
   },
   data: function () {
     return {
-      currentView: 'Chapters',
+      searchString: '',
+      currentView: 'Stories',
       chapterList: [],
       userToken: '',
       user: {},
@@ -105,6 +102,76 @@ export default {
         chapterDescription: 'Dynamic Busanasdfasdfasdfasdf asdfasdfasdfasdfsadfsadfs adfsadfsadfdfasd asdfasdfsadfaasdfasdfasd fasdfasdfasdfas dfsdafsadfsadfasdf sdfasdfsadfs adfsadfasdsd',
         chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
       }],
+      storiesList: [{
+        storyTitle: '방콕여행기',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '방콕여행기',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '싱가폴 여행',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '싱가폴 여행',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '방콕여행기',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '싱가폴 여행',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '방콕여행기',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '방콕여행기',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '싱가폴 여행',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '싱가폴 여행',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      }],
       scrapBookTest: [],
       draggingChapter: {},
       createStoryChapterList: [],
@@ -114,6 +181,30 @@ export default {
   computed: {
     isLoggedIn: function () {
       return this.userToken !== ''
+    },
+    // A computed property that holds only those articles that match the searchString.
+    filteredStories: function () {
+      var storiesArray = this.storiesList
+      var searchString = this.searchString
+
+      if (!searchString) {
+        return storiesArray
+      }
+
+      searchString = searchString.trim().toLowerCase()
+      storiesArray = storiesArray.filter(function (item) {
+        if (item.storyTitle.toLowerCase().indexOf(searchString) !== -1) {
+          return item
+        } else {
+          for (var chapter in item.chapterList) {
+            if (item.chapterList[chapter].toLowerCase().indexOf(searchString) !== -1) {
+              return item
+            }
+          }
+        }
+      })
+      // Return an array with the filtered data.
+      return storiesArray
     }
   },
   /* eslint-disable */
@@ -132,6 +223,9 @@ export default {
     })
   },
   methods: {
+    currentViewChange: function (currentView) {
+      this.currentView = currentView
+    },
     onScrapBookDrop: function (ev) {
       ev.preventDefault();
       console.log(ev.target)
@@ -145,7 +239,7 @@ export default {
       // })
     },
     onCreateStoryDrop: function (ev) {
-      ev.preventDefault();
+      ev.preventDefault()
       this.createStoryChapterList.push(this.draggingChapter)
       this.draggingChapter = {}
     },
