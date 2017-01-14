@@ -5,14 +5,20 @@
     </div>
     <div class="image content">
       <div class="ui medium images">
-        <img v-for="imgsrc in chapter.chapterPhotoList" class="ui image" :src=imgsrc>
+        <img v-for="imgsrc in newChapter.chapterPhotoList" class="ui image" :src="imgsrc">
       </div>
     </div>
     <div class="content">
       <div class="description">
         <div class="ui header"><input v-model="newChapter.chapterLocation" type="text"></input></div>
-        <textarea v-model="newChapter.chapterDescription"></textarea>
+        <textarea v-model="newChapter.chapterDescription" :placeholder="this.chapter.chapterDescription"></textarea>
         <textarea v-model="newChapter.chapterTips" :placeholder="this.chapter.chapterTip"></textarea>
+        <div>
+          <label for="file" class="ui icon button">
+                <i class="file icon"></i>
+                Open File</label>
+          <input type="file" id="file" style="display:none" v-on:change="onFileChange">
+        </div>
       </div>
     </div>
     <div class="actions">
@@ -26,7 +32,7 @@
 <script>
 export default {
   name: 'chapteradddetail',
-  props: ['chapter', 'index', 'saveNewChapter'],
+  props: ['chapter', 'index', 'saveNewChapter', 'storageRef'],
   data: function () {
     return {
       newChapter: {
@@ -53,6 +59,17 @@ export default {
     onOKClick: function () {
       this.saveNewChapter(this.newChapter)
       $('#addModal' + this.index).modal('hide')
+    },
+    onFileChange: function (ev) {
+      let files = ev.target.files || ev.dataTransfer.files
+      console.log(files)
+      let file = files[0]
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        this.newChapter.chapterPhotoList.push(e.target.result)
+      }
+      reader.readAsDataURL(file)
+      let uploadTask = this.storageRef.child('images/'+file.name).put(file)
     }
   },
   /* eslint-disable */

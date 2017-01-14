@@ -8,24 +8,20 @@
       {{chapter.chapterDescription}} 
     </div>
     <div v-if="contentVisible" class="ui extra content">
-      <div class="ui segment" :class="{stacked: chapter.chapterPhotoList.length > 1}">
+      <div class="ui segment">
         <div class="ui dimmable small centered image">
-        <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
-          <div class="content">
-            <div class="center">
-              <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
-              <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+          <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+            <div class="content">
+              <div class="center">
+                <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
+                <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+              </div>
             </div>
           </div>
-        </div>
         <img :src="this.chapter.chapterPhotoList[curImageIdx]">
       </div>
     </div>
   </div>
-    <!--<div v-if="!contentVisible" class="lowerDroppableZone" v-on:dragover.prevent v-on:drop="onLowerDrop">
-      <br/>
-    </div>
-  </div>-->
 </template>
 
 <script>
