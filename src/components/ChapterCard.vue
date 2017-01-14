@@ -1,24 +1,28 @@
 <template>
-  <div class="ui fluid raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-    <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
-    <div class="content">
-      <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
-    </div>
-    <div v-if="contentVisible" class="ui center aligned container"> 
-      {{chapter.chapterDescription}} 
-    </div>
-    <div v-if="contentVisible" class="ui extra content">
-      <div class="ui segment">
-        <div class="ui dimmable small centered image">
-          <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
-            <div class="content">
-              <div class="center">
-                <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
-                <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+  <div class="chaptercard">
+    <!--fluid-->
+    <div class="ui raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
+      <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
+      <div class="content">
+        <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
+      </div>
+      <div v-if="contentVisible" class="ui center aligned container"> 
+        {{chapter.chapterDescription}} 
+      </div>
+      <div v-if="contentVisible" class="ui extra content">
+        <div class="ui segment">
+          <div class="ui dimmable small centered image">
+            <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+              <div class="content">
+                <div class="center">
+                  <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
+                  <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+                </div>
               </div>
             </div>
+            <img :src="this.chapter.chapterPhotoList[curImageIdx]">
           </div>
-        <img :src="this.chapter.chapterPhotoList[curImageIdx]">
+        </div>
       </div>
     </div>
   </div>
@@ -86,4 +90,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.dotted_line{
+  content:"";
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 2px dotted black;
+}
+</style>
 

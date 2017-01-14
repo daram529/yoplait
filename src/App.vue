@@ -109,8 +109,15 @@ export default {
         key: 4
       }],
       storiesList: [{
+        userID: 'adgaglalfjladskjfdsa',
+        userName: 'Minkyu YUN',
         storyTitle: '방콕여행기',
         storyDate: '2016/08/15 (2박3일)',
+        storyPeriod: '2박3일',
+        storyPeople: '2명',
+        storyTotalExpense: '150만원',
+        storyExpenseList: ['항공비: 50만원', '교통비: 20만원', '식사: 30만원'],
+        storyTagList: ['#우정여행', '#둘이서', '#배낭여행', '#액티비티', '#역사여행', '#말트래킹', '#시안성벽', '#성벽자전거'],
         storyPhoto: '/static/images/bangkok.jpg',
         chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
         storyName: 'Minkyu Yun'
