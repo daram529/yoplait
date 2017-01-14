@@ -51,10 +51,6 @@
 
 <script>
 /* eslint-disable */
-<<<<<<< HEAD
-// import $ from 'jQuery'
-=======
->>>>>>> 5b9b49fe478d827f33249bd568057fd3d4f7f38d
 import StoryCard from './StoryCard'
 export default {
   name: 'stories',

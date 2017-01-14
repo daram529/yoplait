@@ -43,7 +43,8 @@ export default {
   components: {
     BarMenu,
     Chapters,
-    ChapterCard
+    ChapterCard,
+    Stories
   },
   data: function () {
     return {

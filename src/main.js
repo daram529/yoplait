@@ -6,6 +6,7 @@ import semantic from 'semantic'
 import Vue from 'vue'
 import App from './App'
 import Vuefire from 'vuefire'
+import Firebase from 'firebase'
 
 // var Vue = require('vue');
 // var vueFirebaseAuth = require('vueui-firebase-auth');
