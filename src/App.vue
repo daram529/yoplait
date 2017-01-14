@@ -1,16 +1,11 @@
 <template>
   <div id="app">
-    <BarMenu></BarMenu>
-    <!--<main class="ui container" id="content">
-      <Stories></Stories>
-    </main>
-    <StoriesTest></StoriesTest>-->
-    <!--<div class="ui container" id="content">-->
+    <BarMenu :isLoggedIn = "isLoggedIn" :on-login-click="onLoginClick" :on-sign-out="onSignOutClick" :user-name="user.displayName"></BarMenu>
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" :story-list="storiesList" :onClick="onStoryClick"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :chapter-list="chaptersTest" :on-drag-start="onScrapDragStart"></Chapters>
-        <CreateStory v-else-if="currentView == 'CreateStory'" :chapter-list="createStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList"></CreateStory>
+        <CreateStory v-else-if="currentView == 'CreateStory'" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" ></CreateStory>
         <div class="ui right rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui header"> Scrapbook</h3>
@@ -43,6 +38,26 @@ let config = {
 let fb = firebase.initializeApp(config)
 let db = fb.database()
 const storyRef = db.ref('story')
+
+// let chapter = function () {
+//   this.chapterLocation = ''
+//   this.chapterDescription = ''
+//   this.chapterTip = ''
+//   this.chapterPhotoList = []
+// }
+// let story = function () {
+//   this.userID = ''
+//   this.userName = ''
+//   this.storyName = ''
+//   this.storyDate = ''
+//   this.storyDuration = 0
+//   this.storyTotalExpense = ''
+//   this.storyExpenseList = []
+//   this.storyTagList = []
+//   this.storyType = ''
+//   this.chapterList = []
+//   this.storyPhoto = ''
+// }
 export default {
   name: 'app',
   components: {
@@ -59,6 +74,8 @@ export default {
     return {
       currentView: 'Chapters',
       chapterList: [],
+      userToken: '',
+      user: {},
       chaptersTest: [{
         chapterLocation: 'Busan',
         chapterDescription: '모르겄다',
@@ -84,111 +101,15 @@ export default {
         chapterDescription: 'Dynamic Busanasdfasdfasdfasdf asdfasdfasdfasdfsadfsadfs adfsadfsadfdfasd asdfasdfsadfaasdfasdfasd fasdfasdfasdfas dfsdafsadfsadfasdf sdfasdfsadfs adfsadfasdsd',
         chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
       }],
-      storiesList: [{
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      // {
-      //   storyTitle: 'Busan',
-      //   storyDate: '2016/08/15 (2박3일)',
-      //   storyPhoto: '/static/busan.jpg',
-      //   chapterList: [{
-      //     chapterLocation: 'Busan',
-      //     chapterDescription: '모르겄다',
-      //     chapterPhotoList: ['./static/busan.jpg']
-      //   },
-      //   {
-      //     chapterLocation: 'Busan',
-      //     chapterDescription: 'Dynamic Busan',
-      //     chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
-      //   },
-      //   {
-      //     chapterLocation: 'Busan',
-      //     chapterDescription: 'Dynamic Busansdafasdfasd fasdfasdfasdfasd fsadfasdfasdfasdasdfasd fasdfsadfsadfasdfsad fasdfsadfsadfa sdfasdfasdfasdfasd',
-      //     chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
-      //   },
-      //   {
-      //     chapterLocation: 'Busan',
-      //     chapterDescription: 'Dynamic Busan',
-      //     chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
-      //   },
-      //   {
-      //     chapterLocation: 'Busan',
-      //     chapterDescription: 'Dynamic Busanasdfasdfasdfasdf asdfasdfasdfasdfsadfsadfs adfsadfsadfdfasd asdfasdfsadfaasdfasdfasd fasdfasdfasdfas dfsdafsadfsadfasdf sdfasdfsadfs adfsadfasdsd',
-      //     chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
-      //   }],
-      //   storyName: 'khw'
-      // },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      }],
       scrapBookTest: [],
       draggingChapter: {},
       createStoryChapterList: [],
       active: false
+    }
+  },
+  computed: {
+    isLoggedIn: function () {
+      return this.userToken !== ''
     }
   },
   /* eslint-disable */
@@ -239,10 +160,29 @@ export default {
     },
     insertCreateStoryChapterList: function (index) {
       this.createStoryChapterList.splice(index, 0, this.draggingChapter)
+      this.draggingChapter = {}
     },
-    insertScrapBookChapterList: function (index) {
-      this.scrapBookTest.splice(index, 0, this.draggingChapter)
-    }
+    onLoginClick: function () {
+      let provider = new firebase.auth.FacebookAuthProvider()
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        this.userToken = result.credential.accessToken
+        this.user = result.user
+        console.log(this.user)
+
+      }.bind(this)).catch(function (error) {
+        console.log('error' + error)
+      })
+    },
+    onSignOutClick: function () {
+      firebase.auth().signOut().then(function () {
+        this.user = {}
+        this.userToken = ''
+      })
+    },
+    modifyCreateStoryChapter: function (chapter, index) {
+      this.createStoryChapterList.splice(index, 1, chapter)
+    },
+
   }
 }
 </script>

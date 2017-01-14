@@ -15,15 +15,19 @@
                 여행 글 쓰러 가기
             </a>
             <div class="two wide column right item">
-                <div class="ui simple dropdown">
-                    Dropdown
+                <div v-if="isLoggedIn" class="ui simple dropdown">
+                    {{this.userName}}
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                    <div class="item">Choice 1</div>
-                    <div class="item">Choice 2</div>
-                    <div class="item">Choice 3</div>
+                    <div class="item">내 여행기</div>
+                    <div class="item">내 프로필</div>
+                    <div class="ui divider"></div>
+                    <div class="item" v-on:click="onSignOutClick">로그아웃</div>
                     </div>
                 </div>
+                <button v-else class="ui labeled icon inverted basic button" v-on:click="onLoginClick">
+                    <i class="sign in icon"/> Log in 
+                </button>
             </div>
         </div>
     </div>
@@ -32,7 +36,8 @@
 <script>
 export default {
   name: 'barmenu',
-  data () {
+  props: ['isLoggedIn', 'onLoginClick', 'onSignOutClick', 'userName'],
+  data: function () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
