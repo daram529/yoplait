@@ -5,7 +5,7 @@
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" :story-list="storiesList" :onClick="onStoryClick"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :chapter-list="chaptersTest" :on-drag-start="onScrapDragStart"></Chapters>
-        <CreateStory v-else-if="currentView == 'CreateStory'" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" ></CreateStory>
+        <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick"></CreateStory>
         <div class="ui right rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui header"> Scrapbook</h3>
@@ -39,25 +39,25 @@ let fb = firebase.initializeApp(config)
 let db = fb.database()
 const storyRef = db.ref('story')
 
-// let chapter = function () {
-//   this.chapterLocation = ''
-//   this.chapterDescription = ''
-//   this.chapterTip = ''
-//   this.chapterPhotoList = []
-// }
-// let story = function () {
-//   this.userID = ''
-//   this.userName = ''
-//   this.storyName = ''
-//   this.storyDate = ''
-//   this.storyDuration = 0
-//   this.storyTotalExpense = ''
-//   this.storyExpenseList = []
-//   this.storyTagList = []
-//   this.storyType = ''
-//   this.chapterList = []
-//   this.storyPhoto = ''
-// }
+let Chapter = function () {
+  this.chapterLocation = ''
+  this.chapterDescription = ''
+  this.chapterTip = ''
+  this.chapterPhotoList = []
+}
+let Story = function () {
+  this.userID = ''
+  this.userName = ''
+  this.storyName = ''
+  this.storyDate = ''
+  this.storyDuration = 0
+  this.storyTotalExpense = ''
+  this.storyExpenseList = []
+  this.storyTagList = []
+  this.storyType = ''
+  this.chapterList = []
+  this.storyPhoto = ''
+}
 export default {
   name: 'app',
   components: {
@@ -76,6 +76,7 @@ export default {
       chapterList: [],
       userToken: '',
       user: {},
+      storageRef: fb.storage().ref(),
       chaptersTest: [{
         chapterLocation: 'Busan',
         chapterDescription: '모르겄다',
@@ -106,10 +107,10 @@ export default {
         chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
         key: 4
       }],
-      scrapBookTest: [],
+      scrapBookTest: [new Chapter()],
       draggingChapter: {},
       createStoryChapterList: [],
-      active: false
+      draggingFrom: ''
     }
   },
   computed: {
@@ -135,11 +136,13 @@ export default {
   methods: {
     onScrapBookDrop: function (ev) {
       ev.preventDefault();
-      console.log(ev.target)
-      console.log(this.draggingChapter)
-      console.log(this.scrapBookTest)
-      this.scrapBookTest.push(this.draggingChapter)
-      this.draggingChapter = {}
+      console.log(ev)
+      console.log(ev.dataTransfer)
+      if(this.draggingFrom !== 'Scrapbook'){
+        this.scrapBookTest.push(this.draggingChapter)
+        this.draggingChapter = {}
+      }
+      this.draggingFrom = ''
       // $('.ui.sticky').sticky('refresh')
       // Vue.nextTick(function () {
       //   $('.ui.sticky').sticky('refresh')
@@ -149,16 +152,19 @@ export default {
       ev.preventDefault();
       this.createStoryChapterList.push(this.draggingChapter)
       this.draggingChapter = {}
+      this.draggingFrom = ''
     },
     onScrapDragStart: function (index) {
       console.log(index)
       this.draggingChapter = this.chaptersTest[index]
+      this.draggingFrom = 'Chapters'
     },
     // onDragRemove: function (index) {
     //   this.scrapBookTest.splice(index, 1)
     // },
     onCreateStoryDragStart: function (index) {
       this.draggingChapter = this.scrapBookTest[index]
+      this.draggingFrom = 'Scrapbook'
     },
     onStoryClick: function (story) {
       this.chapterList = story.child('chapterList')
@@ -187,7 +193,22 @@ export default {
     modifyCreateStoryChapter: function (chapter, index) {
       this.createStoryChapterList.splice(index, 1, chapter)
     },
-
+    onSaveClick: function () {
+      let newStory = new Story()
+      newStory.userID = this.userToken
+      newStory.userName = this.user.displayName
+      newStory.storyName = 'test001'
+      newStory.storyDate = 'test002'
+      newStory.storyDuration = 1
+      newStory.storyTotalExpense = 'test003'
+      newStory.storyExpenseList = ['Hello']
+      newStory.storyTagList = ['Hello', 'World']
+      newStory.storyType = 'plan'
+      newStory.chapterList = this.createStoryChapterList
+      newStory.storyPhoto = this.createStoryChapterList[0].chapterPhotoList[0]
+      console.log(newStory)
+      this.chaptersTest = newStory.chapterList
+    }
   }
 }
 </script>

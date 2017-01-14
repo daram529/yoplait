@@ -1,12 +1,15 @@
 <template>
   <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-    <ChapterAddDetail :chapter="chapter" :index="index" :save-new-chapter="saveNewChapter"></ChapterAddDetail>
+    <ChapterAddDetail :storageRef="storageRef" :chapter="chapter" :index="index" :save-new-chapter="saveNewChapter"></ChapterAddDetail>
     <div class="content">
       <h2 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
       <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
     </div>
     <div class="ui center aligned container"> 
       {{newChapter.chapterDescription}} 
+    </div>
+    <div class="ui center aligned container"> 
+      {{newChapter.chapterTip}} 
     </div>
     <div class="ui extra content">
       <div class="ui segment">
@@ -30,7 +33,7 @@
 import ChapterAddDetail from './ChapterAddDetail'
 export default {
   name: 'chapteraddcard',
-  props: ['chapter', 'index', 'modifyChapter'],
+  props: ['chapter', 'index', 'modifyChapter', 'storageRef'],
   components: {
     ChapterAddDetail
   },
