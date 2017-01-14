@@ -79,27 +79,32 @@ export default {
       chaptersTest: [{
         chapterLocation: 'Busan',
         chapterDescription: '모르겄다',
-        chapterPhotoList: ['./static/busan.jpg']
+        chapterPhotoList: ['./static/busan.jpg'],
+        key: 0
       },
       {
         chapterLocation: 'Busan',
         chapterDescription: 'Dynamic Busan',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
+        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
+        key: 1
       },
       {
         chapterLocation: 'Busan',
         chapterDescription: 'Dynamic Busansdafasdfasd fasdfasdfasdfasd fsadfasdfasdfasdasdfasd fasdfsadfsadfasdfsad fasdfsadfsadfa sdfasdfasdfasdfasd',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
+        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
+        key: 2
       },
       {
         chapterLocation: 'Busan',
         chapterDescription: 'Dynamic Busan',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
+        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
+        key: 3
       },
       {
         chapterLocation: 'Busan',
         chapterDescription: 'Dynamic Busanasdfasdfasdfasdf asdfasdfasdfasdfsadfsadfs adfsadfsadfdfasd asdfasdfsadfaasdfasdfasd fasdfasdfasdfas dfsdafsadfsadfasdf sdfasdfsadfs adfsadfasdsd',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg']
+        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
+        key: 4
       }],
       scrapBookTest: [],
       draggingChapter: {},

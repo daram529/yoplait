@@ -2,23 +2,23 @@
   <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
     <ChapterAddDetail :chapter="chapter" :index="index" :save-new-chapter="saveNewChapter"></ChapterAddDetail>
     <div class="content">
-      <h2 class="ui header chapterlocation" >{{newChapter.chapterLocation}}</h2>
+      <h2 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
       <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
     </div>
     <div class="ui center aligned container"> 
       {{newChapter.chapterDescription}} 
     </div>
     <div class="ui extra content">
-      <div class="ui segment" :class="{stacked: newChapter.chapterPhotoList.length > 1}">
-        <div class="ui dimmable image">
-        <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
-          <div class="content">
-            <div class="center">
-              <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
-              <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+      <div class="ui segment">
+        <div class="ui dimmable medium image">
+          <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+            <div class="content">
+              <div class="center">
+                <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
+                <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+              </div>
             </div>
           </div>
-        </div>
         <img :src="this.newChapter.chapterPhotoList[curImageIdx]">
       </div>
     </div>
