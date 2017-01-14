@@ -6,14 +6,10 @@ import semantic from 'semantic'
 import Vue from 'vue'
 import App from './App'
 import Vuefire from 'vuefire'
-
-// var Vue = require('vue');
-// var vueFirebaseAuth = require('vueui-firebase-auth');
-// Vue.use(vueFirebaseAuth);
-
+// import firebaseAuth from 'vueui-firebase-auth'
 
 Vue.use(Vuefire)
-
+// Vue.use(firebaseAuth)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
