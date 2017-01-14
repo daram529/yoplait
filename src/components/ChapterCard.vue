@@ -1,4 +1,8 @@
 <template>
+  <!--<div class="chapterCard">
+    <div v-if="!contentVisible" class="upperDroppableZone" v-on:dragover.prevent v-on:drop="onUpperDrop">
+      <br/>
+    </div>-->
   <div class="ui fluid raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
     <!--<div class="ui text container">-->
     <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
@@ -22,8 +26,11 @@
         <img :src="this.chapter.chapterPhotoList[curImageIdx]">
       </div>
     </div>
-    
   </div>
+    <!--<div v-if="!contentVisible" class="lowerDroppableZone" v-on:dragover.prevent v-on:drop="onLowerDrop">
+      <br/>
+    </div>
+  </div>-->
 </template>
 
 <script>

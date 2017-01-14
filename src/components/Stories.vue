@@ -51,6 +51,10 @@
 
 <script>
 /* eslint-disable */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4c8b4938f35401decdd0beb0a96d745027e89b23
 import StoryCard from './StoryCard'
 export default {
   name: 'stories',

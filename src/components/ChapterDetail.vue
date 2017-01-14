@@ -5,17 +5,19 @@
       Details
     </div>
     <div class="image content">
-      <div class="ui dimmable medium image">
-        <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+      <div class="ui medium images">
+        <!--<div class="ui image inverted dimmer" :id="'imageDimmer'+index">
           <div class="content">
             <div class="center">
               <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
               <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
             </div>
           </div>
-        </div>
-        <img :src="chapter.chapterPhotoList[curImageIdx]">
+        </div>-->
+        <img v-for="imgsrc in chapter.chapterPhotoList" class="ui image" :src=imgsrc>
       </div>
+    </div>
+    <div class="content">
       <div class="description">
         <div class="ui header">{{chapter.chapterLocation}}</div>
         <p>{{chapter.chapterDescription}}</p>
