@@ -5,7 +5,7 @@
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" :story-list="filteredStories" :onClick="onStoryClick"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :chapter-list="chaptersTest" :on-drag-start="onScrapDragStart"></Chapters>
-        <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick"></CreateStory>
+        <CreateStory v-else-if="currentView == 'CreateStory'" v-model = "storyDate" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick"></CreateStory>
         <div class="ui right rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui header"> Scrapbook</h3>
@@ -72,6 +72,7 @@ export default {
   },
   data: function () {
     return {
+      storyDate: 0,
       searchString: '',
       currentView: 'Stories',
       chapterList: [],

@@ -9,7 +9,7 @@
           </h3>
           <div class="storyDate" style="color:gray; font-size:12px;">
             2016/08/15 (2박3일)
-            <input v-model="date" id="storyDate" type="number" min="1"></input>
+            <input v-model="date" :value="value" @input="$emit('input', $event.target.value)" id="storyDate" type="number" min="1"></input>
           </div>
           <div class="storyOwner">
             Minkyu Yun
@@ -100,7 +100,7 @@ export default {
   components: {
     ChapterAddCard
   },
-  props: ['chapterList', 'onCreateStoryDrop', 'modifyChapter', 'storageRef'],
+  props: ['chapterList', 'onCreateStoryDrop', 'modifyChapter', 'storageRef', 'value'],
   methods: {
   }
 }
