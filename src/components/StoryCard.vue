@@ -16,11 +16,11 @@
               <!--여기에 제목이랑 날짜 필요-->
             </div>
             <div class="ui blurring dimmable small centered image">
-              <div class="ui inverted dimmer" :id="'imageDimmer' + index">
+              <div class="ui inverted dimmer">
                 <div class="content">
                 </div>
               </div>
-              <img class="ui image" :src="story.storyPhoto">
+              <img class="ui image" :id="'imageDimmer' + index" :src="story.storyPhoto">
             </div>
             <div class="content" style="border:none;">
               <ol>
@@ -47,18 +47,12 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  mounted: function () {
-    $('#imageDimmer'+this.index).dimmer({
-      on: 'hover',
-      opacity: '0.05'
-    })
-  },
   methods: {
     onMouseOver: function () {
-      $('#imageDimmer'+this.index).dimmer('show')
+      $('#imageDimmer'+this.index).stop().animate({opacity:0.5},100)
     },
     onMouseLeave: function () {
-      $('#imageDimmer'+this.index).dimmer('hide')
+      $('#imageDimmer'+this.index).stop().animate({opacity:1}, 100)
     }
   },
   props: ['story', 'index']

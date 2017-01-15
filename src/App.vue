@@ -8,11 +8,13 @@
         <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
         <div class="ui right rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
-           <h3 class="ui header"> Scrapbook</h3>
-           <div class="ui grid">
-              <ChapterCard v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
+           <h3 class="ui block header" style="padding-left:10px; margin-bottom:5px; background-color:#E0E0E0">
+             <i class="sticky note icon"></i>Scrapbook
+           </h3>
+           <div class="ui container" id="stickerContent">
+              <ChapterCard id="scrapbookCard" v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
           </div>
-          <Button class="ui button" v-on:click="currentView == 'Chapters' ? currentView = 'CreateStory' : currentView = 'Chapters'">Toggle!!</Button>
+          <Button class="ui button" v-on:click="currentView == 'Chapters' ? currentView = 'CreateStory' : currentView = 'Chapters'">임시버튼</Button>
         </div>
       </div>
     </main>
@@ -41,7 +43,7 @@ const storyRef = db.ref('story')
 const usersRef = db.ref('users')
 
 let Chapter = function () {
-  this.chapterLocation = ''
+  this.chapterLocation = '새로운 생성'
   this.chapterDescription = ''
   this.chapterTip = ''
   this.chapterPhotoList = []
@@ -119,7 +121,7 @@ export default {
       storiesList: [{
         userID: 'adgaglalfjladskjfdsa',
         userName: 'Minkyu YUN',
-        storyTitle: '방콕여행기',
+        storyTitle: '방에 콕콕콕',
         storyDate: '2016/08/15 (2박3일)',
         storyPeriod: '2박3일',
         storyPeople: '2명',
@@ -131,6 +133,41 @@ export default {
         storyName: 'Minkyu Yun'
       },
       {
+        storyTitle: '너만 모르는 오사카',
+        storyDate: '2016/12/15 (5박6일)',
+        storyPhoto: '/static/images/japan.png',
+        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
+        storyName: '유느미느큐우'
+      },
+      {
+        storyTitle: '폴은 가수다?',
+        storyDate: '2016/12/15 (3박4일)',
+        storyPhoto: '/static/images/singapore.jpg',
+        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '사흘만에 대만정복',
+        storyDate: '2016/12/15 (2박3일)',
+        storyPhoto: '/static/images/taiwan.jpg',
+        chapterList: ['타오위안 공항', '스린야시장', '30년 노점', '타이페이101빌딩', '딘타이펑', '융캉제', '경극 공연', '용산사', '타이베이 중앙역'],
+        storyName: '윤민규'
+      },
+      {
+        storyTitle: '넌 방콕 나도 방콕',
+        storyDate: '2016/08/15 (2박3일)',
+        storyPhoto: '/static/images/bangkok.jpg',
+        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        storyName: 'Minkyu Yun'
+      },
+      {
+        storyTitle: '너만 모르는 오사카',
+        storyDate: '2016/12/15 (5박6일)',
+        storyPhoto: '/static/images/japan.png',
+        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
+        storyName: '유느미느큐우'
+      },
+      {
         storyTitle: '방콕여행기',
         storyDate: '2016/08/15 (2박3일)',
         storyPhoto: '/static/images/bangkok.jpg',
@@ -138,56 +175,21 @@ export default {
         storyName: 'Minkyu Yun'
       },
       {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '방콕여행기',
+        storyTitle: '방콕말고 방콕가자',
         storyDate: '2016/08/15 (2박3일)',
         storyPhoto: '/static/images/bangkok.jpg',
         chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
         storyName: 'Minkyu Yun'
       },
       {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
+        storyTitle: '옷살까 오사카',
+        storyDate: '2016/12/15 (5박6일)',
+        storyPhoto: '/static/images/japan.png',
+        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
+        storyName: '유느미느큐우'
       },
       {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '싱가폴 여행',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '싱가폴 여행',
+        storyTitle: '싱가폴서 살아남기',
         storyDate: '2016/12/15 (3박4일)',
         storyPhoto: '/static/images/singapore.jpg',
         chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
@@ -338,7 +340,39 @@ export default {
   top:0px;
   border : 1px solid rgba(34,36,38,0.15);
   border-radius: 5px;
-  padding-top: 10px;
+  background-image:url("/static/images/bangkok.jpg");
+}
+
+/*collection of scrapbook items*/
+#stickerContent {
+  padding-left:40px;
+  padding-right:40px;
+  padding-top:10px;
+}
+
+/*scrapbook item*/
+#scrapbookCard {
+  margin-bottom:10px;
+}
+
+/*scrapbook title*/
+#scrapbookCard h3{
+  font-size: 16px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+/*sracpbook card*/
+#scrapbookCard .card{
+  height:30px;
+  background: #ECEFF1;
+}
+
+/*scrapbook title*/
+#scrapbookCard .content{
+  padding:0px;
 }
 
 #content {
@@ -363,8 +397,4 @@ body {
   background-color: #f2f2f2;
   flex-direction: column;
 }
-
-/*#sticker {
-  height: 70vh;
-}*/
 </style>

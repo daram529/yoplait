@@ -3,8 +3,8 @@
     <!--fluid-->
     <div class="ui raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
       <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
-      <div class="content">
-        <h2 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
+      <div class="content" id="titleContent">
+        <h3 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
       </div>
       <div v-if="contentVisible" class="ui center aligned container"> 
         {{chapter.chapterDescription}} 

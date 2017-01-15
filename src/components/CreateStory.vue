@@ -3,63 +3,33 @@
     <div class="ui relaxed padded full grid">
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
-          <h3 class="storyTitle">
-            방콕여행기
-            <!--{{story.storyTitle}}-->
-          </h3>
-          <div class="storyDate" style="color:gray; font-size:12px;">
-            2016/08/15 (2박3일)
-            <div class="ui mini action icon input">
-              <input v-model="date" id="storyDate"></input>
-              <button class="ui mini icon button" @click="$emit('changeDays', [date])"><i class="calendar icon"/></Button>
+          <div class="ui medium input"> <input type="text" placeholder="여행기 제목"></div>
+          <div class="storyDate" style="font-size:12px;">
+            <div class="ui small input"> <input placeholder="여행 날짜(ex:2016/08/15)"></div>
+            <div class="ui action icon input">
+              <input v-model="date" id="storyDate" placeholder="총 여행 일(ex:3)"></input>
+              <button class="ui mini icon button" @click="$emit('changeDays', [date])"><i class="pointing up icon"/></Button>
             </div>
-          </div>
-          <div class="storyOwner">
-            Minkyu Yun
-            <!--{{story.userName}}-->
           </div>
         </div>
         <div class="info_mid_left" id="storyPeople">
-          <div class="storyPeople">
-            인원: 5명
-            <!--인원: {{story.storyPeople}}-->
-          </div>
+          <div class="ui mini input"><input placeholder="총 인원수(ex:5명)"></input></div>
         </div>
         <div class="info_mid_right" id="storyExpense">
-          <h5 class="storyTotalExpense">
-            1인 총 여행경비: 150만원
-            <!--1인 총 여행경비: {{story.storyTotalExpense}}-->
-          </h5>
-          <div class="ui list">
-            <!--<div class="item" v-for="expense in story.storyExpenseList">
-              {{expesne}}
-            </div>-->
-            <div class="item">항공비: 50만원</div>
-            <div class="item">교통비: 20만원</div>
-            <div class="item">식사: 30만원</div>
+          <div class="ui mini input" style="width:180px;"><input placeholder="1인 총 여행경비(ex: 150만원)"></input></div>
+          <div class="ui list" v-for="(input, index) in inputList">
+            <div class="ui mini input" v-model=inputList[index] v-on:keyup.enter="newInput($event.target.value, index)" v-on:keyup.delete="deleteInput($event.target.value, index)"><input placeholder="경비(ex: 항공권:50만원)"></input></div>
           </div>
         </div>
         <div class="ui grid" id="storyTag">
           <div class="eight wide column">
-            <div class="ui list">
-              <!--<div class="item" v-for="(tag,index) in story.storyTagList" v-if="index % 2 == 0">
-                {{tag}}
-              </div>-->
-              <div class="item">#우정여행</div>
-              <div class="item">#둘이서</div>
-              <div class="item">#배낭여행</div>
-              <div class="item">#액티비티</div>
+            <div class="ui list" v-for="(input, index) in tagList" v-if="index<4">
+              <div class="ui mini input" v-model=tagList[index] v-on:keyup.enter="newTag($event.target.value, index)" v-on:keyup.delete="deleteTag($event.target.value, index)"><input placeholder="(ex: #가족끼리)"></input></div>
             </div>
           </div>
           <div class="eight wide column">
-            <div class="ui list">
-              <!--<div class="item" v-for="(tag,index) in story.storyTagList" v-if="index % 2 == 1">
-                {{tag}}
-              </div>-->
-              <div class="item">#역사여행</div>
-              <div class="item">#말트래킹</div>
-              <div class="item">#시안성벽</div>
-              <div class="item">#자전거</div>
+            <div class="ui list" v-for="(input, index) in tagList" v-if="index>4 && index<9">
+              <div class="ui mini input" v-model=tagList[index] v-on:keyup.enter="newTag($event.target.value, index)" v-on:keyup.delete="deleteTag($event.target.value, index)"><input placeholder="(ex: #가족끼리)"></input></div>
             </div>
           </div>
         </div>
@@ -70,31 +40,26 @@
           <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, 0)"><i class="ui plus icon" /></div>
           <template v-for="(chapter, index) in cList">
             <ChapterAddCard :index="index" :chapter="chapter" :storageRef="storageRef" :modify-chapter="modifyChapter" :key="chapter.key"></ChapterAddCard>
-            <!--<div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(index + 1)"><i class="ui plus icon" /></div>-->
             <div v-if="index!=cList.length-1" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
             <div v-else class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)" ><i class="ui plus icon"/></div>
           </template>
         </div>
-        <!--<div class="column">
-        </div>
-        <div class="column">
-        </div>
-        <div class="column">
-        </div>
-        <div class="column">
-        </div>-->
       </div>
     </div>
     <Button class="ui blue right floated labeled icon button" id="saveButton" @click="$emit('saveStory')" style="margin-top:10px;"><i class="save icon"/>Save</Button>
   </div>
 </template>
+
 <script>
+/* eslint-disable */
 import ChapterAddCard from './ChapterAddCard'
 export default {
   name: 'createstory',
   data: function () {
     return {
-      date: 1
+      date: '',
+      inputList:[''],
+      tagList:['']
     }
   },
   components: {
@@ -102,6 +67,26 @@ export default {
   },
   props: ['chapterList', 'onCreateStoryDrop', 'modifyChapter', 'storageRef', 'value'],
   methods: {
+    newInput: function(value, index) {
+      if (value!="" && index==this.tagList.length-1){
+        this.inputList.push('')
+      }
+    },
+    deleteInput: function(value, index) {
+      if (value=="" && this.inputList.length>1){
+        this.inputList.splice(index, 1)
+      }
+    },
+    newTag: function(value, index) {
+      if (value!="" && value.indexOf('#')!= -1 && index==this.tagList.length-1){
+        this.tagList.push('')
+      }
+    },
+    deleteTag: function(value, index) {
+      if (value=="" && this.tagList.length>1){
+        this.tagList.splice(index, 1)
+      }
+    }
   }
 }
 </script>
@@ -131,6 +116,11 @@ export default {
   box-shadow:0;
 }
 
+#storyTag .input{
+  width:100px;
+}
+
+
 .ui.full.grid {
   background-color: #ffffff;
   border : 1px solid rgba(34,36,38,0.15);
@@ -150,5 +140,4 @@ export default {
   width:100%;
   margin-left:5px;
 }
-
 </style>
