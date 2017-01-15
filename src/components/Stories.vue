@@ -14,19 +14,19 @@
             <div class="ui divider"></div>
             <div class="five column row" id="storyBoard">
               <div class="column" style="padding:0;">
-                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 0" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+                <StoryCard v-for="(story, index) in storyList" @storyView="$emit('storyView', index)" v-if="index % 5 == 0" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
               </div>
               <div class="column" style="padding:0;">
-                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 1" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+                <StoryCard v-for="(story, index) in storyList" @storyView="$emit('storyView', index)" v-if="index % 5 == 1" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
               </div>
               <div class="column" style="padding:0;">
-                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 2" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+                <StoryCard v-for="(story, index) in storyList" @storyView="$emit('storyView', index)" v-if="index % 5 == 2" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
               </div>
               <div class="column" style="padding:0;">
-                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 3" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+                <StoryCard v-for="(story, index) in storyList" @storyView="$emit('storyView', index)" v-if="index % 5 == 3" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
               </div>
               <div class="column" style="padding:0;">
-                <StoryCard v-for="(story, index) in storyList" v-if="index % 5 == 4" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
+                <StoryCard v-for="(story, index) in storyList" @storyView="$emit('storyView', index)" v-if="index % 5 == 4" :index="index" :story="story" :key="story['storyTitle']"></StoryCard>
               </div>
             </div>
         </div>

@@ -19,7 +19,7 @@
                     {{this.userName}}
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                    <div class="item">내 여행기</div>
+                    <div class="item" @click="$emit('myStories')">내 여행기</div>
                     <div class="item">내 프로필</div>
                     <div class="ui divider"></div>
                     <div class="item" v-on:click="$emit('logOut')">로그아웃</div>
