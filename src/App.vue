@@ -5,7 +5,7 @@
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" :story-list="filteredStories" :onClick="onStoryClick"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :chapter-list="chaptersTest" :on-drag-start="onScrapDragStart"></Chapters>
-        <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" :onAddClick="insertCreateStoryChapterList" :on-create-story-drop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick"></CreateStory>
+        <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" :modify-chapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
         <div class="ui right rail">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui header"> Scrapbook</h3>
@@ -38,6 +38,7 @@ let config = {
 let fb = firebase.initializeApp(config)
 let db = fb.database()
 const storyRef = db.ref('story')
+const usersRef = db.ref('users')
 
 let Chapter = function () {
   this.chapterLocation = ''
@@ -58,6 +59,11 @@ let Story = function () {
   this.chapterList = []
   this.storyPhoto = ''
 }
+// let User = function () {
+//   this.userID = ''
+//   this.storyIDList = []
+//   this.chapterList = []
+// }
 export default {
   name: 'app',
   components: {
@@ -68,7 +74,8 @@ export default {
     CreateStory
   },
   firebase: {
-    story: storyRef
+    story: storyRef,
+    users: usersRef
   },
   data: function () {
     return {
@@ -187,7 +194,7 @@ export default {
       }],
       scrapBookTest: [new Chapter()],
       draggingChapter: {},
-      createStoryChapterList: [],
+      createStoryChapterList: [[]],
       draggingFrom: ''
     }
   },
@@ -224,11 +231,7 @@ export default {
   mounted: function () {
     console.log($('ui.sticky'))
     console.log($(this.$el).find('#sticker'))
-    // $(this.$el).find('#sticker')
     $('.ui.sticky').sticky({
-      // offset: 55,
-      // bottomOffset: 50,
-      // context: '#main',
       observeChanges: true,
       context: '#two',
       offset: 55,
@@ -248,10 +251,6 @@ export default {
         this.draggingChapter = {}
       }
       this.draggingFrom = ''
-      // $('.ui.sticky').sticky('refresh')
-      // Vue.nextTick(function () {
-      //   $('.ui.sticky').sticky('refresh')
-      // })
     },
     onCreateStoryDrop: function (ev) {
       ev.preventDefault()
@@ -264,9 +263,6 @@ export default {
       this.draggingChapter = this.chaptersTest[index]
       this.draggingFrom = 'Chapters'
     },
-    // onDragRemove: function (index) {
-    //   this.scrapBookTest.splice(index, 1)
-    // },
     onCreateStoryDragStart: function (index) {
       this.draggingChapter = this.scrapBookTest[index]
       this.draggingFrom = 'Scrapbook'
@@ -274,8 +270,8 @@ export default {
     onStoryClick: function (story) {
       this.chapterList = story.child('chapterList')
     },
-    insertCreateStoryChapterList: function (index) {
-      this.createStoryChapterList.splice(index, 0, this.draggingChapter)
+    insertCreateStoryChapterList: function (n, index) {
+      this.createStoryChapterList[n].splice(index, 0, this.draggingChapter)
       this.draggingChapter = {}
     },
     onLoginClick: function () {
@@ -310,9 +306,16 @@ export default {
       newStory.storyTagList = ['Hello', 'World']
       newStory.storyType = 'plan'
       newStory.chapterList = this.createStoryChapterList
-      newStory.storyPhoto = this.createStoryChapterList[0].chapterPhotoList[0]
-      console.log(newStory)
+      newStory.storyPhoto = this.createStoryChapterList[0][0].chapterPhotoList[0]
       this.chaptersTest = newStory.chapterList
+    },
+    onChangeDays: function (n) {
+      console.log('onChangeDays:' + n)
+      this.createStoryChapterList.splice(0,this.createStoryChapterList.length)
+      for(let i = 0; i < n; i++){
+        this.createStoryChapterList.push([])
+      }
+      // this.createStoryChapterList = Array.apply(null, Array(n)).map(function (_) {return []})
     }
   }
 }

@@ -66,10 +66,18 @@ export default {
       let file = files[0]
       let reader = new FileReader()
       reader.onload = (e) => {
-        this.newChapter.chapterPhotoList.push(e.target.result)
+        console.log(e.target.result)
+        // this.newChapter.chapterPhotoList.push(e.target.result)
       }
       reader.readAsDataURL(file)
       let uploadTask = this.storageRef.child('images/'+file.name).put(file)
+      uploadTask.on('state_changed', function (snapshot) {
+        console.log(snapshot)
+      }, function (error) {
+        console.log(error)
+      }, function () {
+        this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
+      })
     }
   },
   /* eslint-disable */
