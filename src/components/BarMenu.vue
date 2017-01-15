@@ -22,10 +22,10 @@
                     <div class="item">내 여행기</div>
                     <div class="item">내 프로필</div>
                     <div class="ui divider"></div>
-                    <div class="item" v-on:click="onSignOutClick">로그아웃</div>
+                    <div class="item" v-on:click="$emit('logOut')">로그아웃</div>
                     </div>
                 </div>
-                <button v-else class="ui labeled icon inverted basic button" v-on:click="onLoginClick">
+                <button v-else class="ui labeled icon inverted basic button" v-on:click="$emit('logIn')">
                     <i class="sign in icon"/> Log in 
                 </button>
             </div>

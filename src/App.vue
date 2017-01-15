@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <BarMenu :filtered-stories = "filteredStories" v-model = "searchString" :current-view-change = "currentViewChange" :is-logged-in = "isLoggedIn" :on-login-click="onLoginClick" :on-sign-out="onSignOutClick" :user-name="user.displayName"></BarMenu>
+    <BarMenu :filtered-stories = "filteredStories" v-model = "searchString" :current-view-change = "currentViewChange" :is-logged-in = "isLoggedIn" @logIn="onLoginClick" @logOut="onLogOutClick" :user-name="user.displayName"></BarMenu>
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" :story-list="filteredStories" :onClick="onStoryClick"></Stories>
@@ -286,11 +286,11 @@ export default {
         console.log('error' + error)
       })
     },
-    onSignOutClick: function () {
+    onLogOutClick: function () {
       firebase.auth().signOut().then(function () {
         this.user = {}
         this.userToken = ''
-      })
+      }.bind(this))
     },
     modifyCreateStoryChapter: function (chapter, index) {
       this.createStoryChapterList.splice(index, 1, chapter)
@@ -307,8 +307,9 @@ export default {
       newStory.storyTagList = ['Hello', 'World']
       newStory.storyType = 'plan'
       newStory.chapterList = this.createStoryChapterList
-      newStory.storyPhoto = this.createStoryChapterList[0][0].chapterPhotoList[0]
+      // newStory.storyPhoto = this.createStoryChapterList[0][0].chapterPhotoList[0]
       this.chaptersTest = newStory.chapterList
+      console.log(newStory)
     },
     onChangeDays: function (n) {
       console.log('onChangeDays:' + n)
