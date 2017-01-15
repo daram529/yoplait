@@ -9,14 +9,10 @@
           </h3>
           <div class="storyDate" style="color:gray; font-size:12px;">
             2016/08/15 (2박3일)
-<<<<<<< HEAD
-            <input v-model="date" :value="value" @input="$emit('input', $event.target.value)" id="storyDate" type="number" min="1"></input>
-=======
             <div class="ui mini action icon input">
               <input v-model="date" id="storyDate"></input>
               <button class="ui mini icon button" @click="$emit('changeDays', [date])"><i class="calendar icon"/></Button>
             </div>
->>>>>>> cc95085fb3a2216cfada23e1379b05744536f7fc
           </div>
           <div class="storyOwner">
             Minkyu Yun
