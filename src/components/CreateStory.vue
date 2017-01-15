@@ -9,7 +9,14 @@
           </h3>
           <div class="storyDate" style="color:gray; font-size:12px;">
             2016/08/15 (2박3일)
+<<<<<<< HEAD
             <input v-model="date" :value="value" @input="$emit('input', $event.target.value)" id="storyDate" type="number" min="1"></input>
+=======
+            <div class="ui mini action icon input">
+              <input v-model="date" id="storyDate"></input>
+              <button class="ui mini icon button" @click="$emit('changeDays', [date])"><i class="calendar icon"/></Button>
+            </div>
+>>>>>>> cc95085fb3a2216cfada23e1379b05744536f7fc
           </div>
           <div class="storyOwner">
             Minkyu Yun
@@ -63,26 +70,23 @@
       </div>
       <div class="ui divider"></div>
       <div class="five column row" id="chapterBoard">
-        <!--<div class="ui header">
-          Add your chapters here!
-        </div>-->
-        <div class="column" v-for="n in date">
-          <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(0)"><i class="ui plus icon" /></div>
-          <template v-for="(chapter, index) in chapterList">
+        <div class="column" v-for="(cList, date) in chapterList" :key="date">
+          <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, 0)"><i class="ui plus icon" /></div>
+          <template v-for="(chapter, index) in cList">
             <ChapterAddCard :index="index" :chapter="chapter" :storageRef="storageRef" :modify-chapter="modifyChapter" :key="chapter.key"></ChapterAddCard>
             <!--<div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(index + 1)"><i class="ui plus icon" /></div>-->
-            <div class="dottedLine" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(index + 1)" v-if="index!=chapterList.length-1"><input></input></div>
-            <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(index)" v-if="index==chapterList.length-1"><i class="ui plus icon" /></div>
+            <div v-if="index!=cList.length-1" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
+            <div v-else class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)" ><i class="ui plus icon"/></div>
           </template>
         </div>
-        <div class="column">
+        <!--<div class="column">
         </div>
         <div class="column">
         </div>
         <div class="column">
         </div>
         <div class="column">
-        </div>
+        </div>-->
       </div>
     </div>
     <Button class="ui blue right floated labeled icon button" id="saveButton" @click="$emit('saveStory')" style="margin-top:10px;"><i class="save icon"/>Save</Button>
