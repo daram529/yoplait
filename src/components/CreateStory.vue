@@ -69,7 +69,7 @@
         <div class="column" v-for="(cList, date) in chapterList" :key="date">
           <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, 0)"><i class="ui plus icon" /></div>
           <template v-for="(chapter, index) in cList">
-            <ChapterAddCard :index="index" :chapter="chapter" :storageRef="storageRef" :modify-chapter="modifyChapter" :key="chapter.key"></ChapterAddCard>
+            <ChapterAddCard :index="index" :chapter="chapter" :storageRef="storageRef" @modifyChapter="function (chapter, index) { $emit('modifyChapter', chapter, index, date)}" :key="chapter.key"></ChapterAddCard>
             <!--<div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="onCreateStoryDrop(index + 1)"><i class="ui plus icon" /></div>-->
             <div v-if="index!=cList.length-1" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
             <div v-else class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)" ><i class="ui plus icon"/></div>
@@ -100,7 +100,7 @@ export default {
   components: {
     ChapterAddCard
   },
-  props: ['chapterList', 'onCreateStoryDrop', 'modifyChapter', 'storageRef'],
+  props: ['chapterList', 'storageRef'],
   methods: {
   }
 }

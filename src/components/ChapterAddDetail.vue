@@ -57,7 +57,7 @@ export default {
     },
     /* eslint-disable */
     onOKClick: function () {
-      this.saveNewChapter(this.newChapter)
+      this.$emit('saveNewChapter', this.newChapter)
       $('#addModal' + this.index).modal('hide')
     },
     onFileChange: function (ev) {
@@ -66,7 +66,7 @@ export default {
       let file = files[0]
       let reader = new FileReader()
       reader.onload = (e) => {
-        console.log(e.target.result)
+        // console.log(e.target.result)
         // this.newChapter.chapterPhotoList.push(e.target.result)
       }
       reader.readAsDataURL(file)
@@ -76,8 +76,9 @@ export default {
       }, function (error) {
         console.log(error)
       }, function () {
+        console.log(uploadTask.snapshot.downloadURL)
         this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
-      })
+      }.bind(this))
     }
   },
   /* eslint-disable */

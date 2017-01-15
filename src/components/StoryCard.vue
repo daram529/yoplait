@@ -1,10 +1,10 @@
 <template>
     <div class="storycard" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
         <div class="ui fluid card">
-            <div class="content">
+            <div class="content" @click="onClick">
               <div>
               <h3 class = "title">
-                {{story.storyTitle}}
+                {{story.storyName}}
               </h3>
               </div>
               <div>
@@ -24,11 +24,12 @@
             </div>
             <div class="content" style="border:none;">
               <ol>
-                <li v-for="chapter in story.chapterList">
-                  {{chapter}}
+                <li v-for="chapterDate in story.chapterList">
+                  <div v-for="chapter in chapterDate">
+                    {{chapter.chapterLocation}}
+                  </div>
                 </li>
               </ol>
-            </div>
             <div class="extra content">
               <div class="name">
                 {{story.storyName}}
@@ -59,6 +60,9 @@ export default {
     },
     onMouseLeave: function () {
       $('#imageDimmer'+this.index).dimmer('hide')
+    },
+    onClick: function () {
+      this.$emit('storyView')
     }
   },
   props: ['story', 'index']

@@ -1,7 +1,7 @@
 <template>
   <div class="chapteraddcard">
     <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-      <ChapterAddDetail :storageRef="storageRef" :chapter="chapter" :index="index" :save-new-chapter="saveNewChapter"></ChapterAddDetail>
+      <ChapterAddDetail :storageRef="storageRef" :chapter="chapter" :index="index" @saveNewChapter="onSaveNewChapter"></ChapterAddDetail>
       <div class="content">
         <h2 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
@@ -60,9 +60,9 @@ export default {
         $('#imageDimmer'+this.index).dimmer('hide')
       }
     },
-    saveNewChapter: function (chapter) {
+    onSaveNewChapter: function (chapter) {
       this.newChapter = chapter
-      this.modifyChapter(this.newChapter, this.index)
+      this.$emit('modifyChapter', this.newChapter, this.index)
     }
   },
   data: function () {
