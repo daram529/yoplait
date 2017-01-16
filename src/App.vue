@@ -111,7 +111,7 @@ export default {
       // {
       //   storyTitle: '너만 모르는 오사카',
       //   storyDate: '2016/12/15 (5박6일)',
-      //   storyPhoto: '/static/images/japan.png',
+      //   storyPhoto: '/static/images/japazkdhn.png',
       //   chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
       //   storyName: '유느미느큐우'
       // },
@@ -183,7 +183,7 @@ export default {
     },
     // A computed property that holds only those articles that match the searchString.
     filteredStories: function () {
-      var storiesArray = this.stories
+      var storiesArray = this.stories.reverse()
       var searchString = this.searchString
 
       if (!searchString) {
@@ -192,14 +192,14 @@ export default {
 
       searchString = searchString.trim().toLowerCase()
       storiesArray = storiesArray.filter(function (item) {
-        if (item.storyTitle.toLowerCase().indexOf(searchString) !== -1) {
+        if (item.storyName && item.storyName.toLowerCase().indexOf(searchString) !== -1) {
           return item
         } else {
           for (var chapterDate in item.chapterList) {
             console.log(item.chapterList[chapterDate])
             for (var chapter in item.chapterList[chapterDate]) {
               console.log(item.chapterList[chapterDate][chapter])
-              if (item.chapterList[chapterDate][chapter].chapterLocation.toLowerCase().indexOf(searchString) !== -1) {
+              if (item.chapterList[chapterDate][chapter].chapterLocation && item.chapterList[chapterDate][chapter].chapterLocation.toLowerCase().indexOf(searchString) !== -1) {
                 return item
               }
             }
@@ -280,6 +280,10 @@ export default {
         // })
         this.userRef.child('chapterList').on('value', (snapshot) => {
           this.scrapBookTest = snapshot.val()
+          if(this.scrapBookTest == null){
+            this.scrapBookTest = [new Chapter()]
+            this.userRef.child('chapterList').set(this.scrapBookTest)
+          }
         })
         console.log(this.user)
 

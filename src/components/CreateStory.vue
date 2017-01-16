@@ -7,8 +7,8 @@
           <div class="storyDate" style="font-size:12px;">
             <div class="ui small input"> <input id="storyDate" v-model="newStory.storyDate" placeholder="여행 날짜(ex:2016/08/15)"></div>
             <div class="ui action icon input">
-              <input v-model="newStory.storyDuration" id="storyPeriod" v-on:keyup.enter="$emit('changeDays', newStory.storyDuration)" placeholder="총 여행 일(ex:3)"></input>
-              <button class="ui mini icon button" @click="$emit('changeDays', newStory.storyDuration)"><i class="pointing up icon"/></Button>
+              <input v-model="newStory.storyPeriod" id="storyPeriod" v-on:keyup.enter="$emit('changeDays', newStory.storyPeriod)" placeholder="총 여행 일(ex:3)"></input>
+              <button class="ui mini icon button" @click="$emit('changeDays', newStory.storyPeriod)"><i class="pointing up icon"/></Button>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="eight wide column">
-            <div class="ui list" v-for="(input, index) in this.newStory.storyTagList" v-if="index>4 && index<9">
+            <div class="ui list" v-for="(input, index) in this.newStory.storyTagList" v-if="index>=4 && index<9">
               <div class="ui mini input" v-on:keyup.enter="newTag($event.target.value, index)" v-on:keyup.delete="deleteTag($event.target.value, index)"><input v-model="newStory.storyTagList[index]" :id="'storyTag'+index" placeholder="(ex: #가족끼리)"></input></div>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default {
     return {
       newStory: {
         storyName: '',
-        storyDuration: '',
+        storyPeriod: '',
         storyDate: '',
         storyPeople: '',
         storyTotalExpense: '',
@@ -82,7 +82,7 @@ export default {
       }
     },
     deleteInput: function(value, index) {
-      if (value=="" && this.newStory.storyExpenseList.length>1){
+      if (value=="" && this.newStory.storyExpenseList.length>1 && index == this.newStory.storyExpenseList.length-1){
         this.newStory.storyExpenseList.splice(index, 1)
       }
     },
@@ -92,7 +92,7 @@ export default {
       }
     },
     deleteTag: function(value, index) {
-      if (value=="" && this.newStory.storyTagList.length>1){
+      if (value=="" && this.newStory.storyTagList.length>1 && index == this.newStory.storyTagList.length-1){
         this.newStory.storyTagList.splice(index, 1)
       }
     },
