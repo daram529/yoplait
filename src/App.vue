@@ -50,19 +50,19 @@ let Chapter = function () {
   this.chapterPhotoList = []
   this.chapterKey = ''
 }
-let Story = function () {
-  this.userID = ''
-  this.userName = ''
-  this.storyName = ''
-  this.storyDate = ''
-  this.storyDuration = 0
-  this.storyTotalExpense = ''
-  this.storyExpenseList = []
-  this.storyTagList = []
-  this.storyType = ''
-  this.chapterList = []
-  this.storyPhoto = ''
-}
+// let Story = function () {
+//   this.userID = ''
+//   this.userName = ''
+//   this.storyName = ''
+//   this.storyDate = ''
+//   this.storyDuration = 0
+//   this.storyTotalExpense = ''
+//   this.storyExpenseList = []
+//   this.storyTagList = []
+//   this.storyType = ''
+//   this.chapterList = []
+//   this.storyPhoto = ''
+// }
 // let User = function () {
 //   this.userToken = ''
 //   this.storyIDList = []
@@ -318,26 +318,26 @@ export default {
       console.log(date)
       this.createStoryChapterList[date].splice(index, 1, chapter)
     },
-    onSaveClick: function () {
-      let newStory = new Story()
+    onSaveClick: function (newStory) {
+      // let newStory = new Story()
       newStory.userID = this.userToken
       newStory.userName = this.user.displayName
-      newStory.storyName = document.getElementById('storyName').value
-      newStory.storyDate = document.getElementById('storyDate').value
-      newStory.storyDuration = document.getElementById('storyPeriod').value
-      newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
-      newStory.storyExpenseList = []
-      var n = 0
-      while (document.getElementById('storyExpense'+n)){
-        newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
-        n++
-      }
-      newStory.storyTagList = []
-      var n = 0
-      while (document.getElementById('storyTag'+n)){
-        newStory.storyTagList.push(document.getElementById('storyTag'+n).value)
-        n++
-      }
+      // newStory.storyName = document.getElementById('storyName').value
+      // newStory.storyDate = document.getElementById('storyDate').value
+      // newStory.storyDuration = document.getElementById('storyPeriod').value
+      // newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
+      // newStory.storyExpenseList = []
+      // var n = 0
+      // while (document.getElementById('storyExpense'+n)){
+      //   newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
+      //   n++
+      // }
+      // newStory.storyTagList = []
+      // var n = 0
+      // while (document.getElementById('storyTag'+n)){
+      //   newStory.storyTagList.push(document.getElementById('storyTag'+n).value)
+      //   n++
+      // }
       newStory.storyType = 'plan'
       newStory.chapterList = this.createStoryChapterList
       // newStory.storyPhoto = this.createStoryChapterList[0][0].chapterPhotoList[0]
