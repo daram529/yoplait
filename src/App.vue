@@ -284,7 +284,7 @@ export default {
     },
     onOtherStoryView: function (index) {
       console.log('onOtherStoryView!!')
-      this.targetStory = this.myStories[index]
+      this.targetStory = this.otherstory[index]
       this.currentView = 'Chapters'
     },
     onScrapDragStart: function (date, index) {
