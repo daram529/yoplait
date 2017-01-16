@@ -91,36 +91,6 @@ export default {
       user: {},
       storageRef: fb.storage().ref(),
       targetStory: {},
-      chapterList: [{
-        chapterLocation: 'Busan',
-        chapterDescription: '모르겄다',
-        chapterPhotoList: ['./static/busan.jpg'],
-        key: 0
-      },
-      {
-        chapterLocation: 'Busan',
-        chapterDescription: 'Dynamic Busan',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
-        key: 1
-      },
-      {
-        chapterLocation: 'Busan',
-        chapterDescription: 'Dynamic Busansdafasdfasd fasdfasdfasdfasd fsadfasdfasdfasdasdfasd fasdfsadfsadfasdfsad fasdfsadfsadfa sdfasdfasdfasdfasd',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
-        key: 2
-      },
-      {
-        chapterLocation: 'Busan',
-        chapterDescription: 'Dynamic Busan',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
-        key: 3
-      },
-      {
-        chapterLocation: 'Busan',
-        chapterDescription: 'Dynamic Busanasdfasdfasdfasdf asdfasdfasdfasdfsadfsadfs adfsadfsadfdfasd asdfasdfsadfaasdfasdfasd fasdfasdfasdfas dfsdafsadfsadfasdf sdfasdfsadfs adfsadfasdsd',
-        chapterPhotoList: ['./static/busan.jpg', './static/busan2.jpg'],
-        key: 4
-      }],
       storiesList: [{
         userID: 'adgaglalfjladskjfdsa',
         userName: 'Minkyu YUN',
@@ -213,7 +183,7 @@ export default {
     },
     // A computed property that holds only those articles that match the searchString.
     filteredStories: function () {
-      var storiesArray = this.storiesList
+      var storiesArray = this.stories
       var searchString = this.searchString
 
       if (!searchString) {
@@ -266,7 +236,7 @@ export default {
       console.log(ev.dataTransfer)
       if(this.draggingFrom !== 'Scrapbook'){
         this.scrapBookTest.push(this.draggingChapter)
-        this.userRef.child('chapterList').update(this.scrapBookTest)
+        this.userRef.child('chapterList').set(this.scrapBookTest)
         this.draggingChapter = {}
       }
       this.draggingFrom = ''
@@ -308,7 +278,9 @@ export default {
         //   this.userToken = token
           
         // })
-        
+        this.userRef.child('chapterList').on('value', (snapshot) => {
+          this.scrapBookTest = snapshot.val()
+        })
         console.log(this.user)
 
       }.bind(this)).catch(function (error) {

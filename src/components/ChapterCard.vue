@@ -14,8 +14,8 @@
           <div class="ui image inverted dimmer">
             <div class="content">
               <div class="center">
-                <i class="left floated black large angle left icon" v-if="chapter.chapterPhotoList.length>1" v-on:click="onLeftClick"/>
-                <i class="right floated black large angle right icon"  v-if="chapter.chapterPhotoList.length>1" v-on:click="onRightClick"/>
+                <i class="left floated black large angle left icon" v-if="chapter.chapterPhotoList && chapter.chapterPhotoList.length>1" v-on:click="onLeftClick"/>
+                <i class="right floated black large angle right icon"  v-if="chapter.chapterPhotoList && chapter.chapterPhotoList.length>1" v-on:click="onRightClick"/>
               </div>
             </div>
           </div>
