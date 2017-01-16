@@ -2,7 +2,7 @@
   <div class="chaptercard">
     <!--fluid-->
     <div class="ui raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-      <ChapterDetail :chapter="chapter" :index="index" :content-visible="contentVisible"></ChapterDetail>
+      <ChapterDetail :chapter="chapter" :index="index" :date="date" :content-visible="contentVisible"></ChapterDetail>
       <div class="content" id="titleContent">
         <h3 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
       </div>
@@ -12,11 +12,11 @@
       <div v-if="contentVisible" class="ui extra content">
         <div class="ui segment">
           <div class="ui dimmable small centered image">
-            <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+            <div class="ui image inverted dimmer" :id="'imageDimmer'+'i'+index+'d'+date">
               <div class="content">
                 <div class="center">
-                  <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
-                  <div class="ui right floated icon button" v-on:click="onRightClick"><i class="angle right icon"/></div>
+                  <div class="ui left floated icon button" v-if="chapter.chapterPhotoList && chapter.chapterPhotoList.length>1" v-on:click="onLeftClick"><i class="angle left icon"/></div>
+                  <div class="ui right floated icon button" v-if="chapter.chapterPhotoList && chapter.chapterPhotoList.length>1" v-on:click="onRightClick"><i class="angle right icon"/></div>
                 </div>
               </div>
             </div>
@@ -34,20 +34,24 @@
 import ChapterDetail from './ChapterDetail'
 export default {
   name: 'chaptercard',
-  props: ['chapter', 'index', 'onDragStart', 'contentVisible'],
+  props: ['chapter', 'index', 'date', 'onDragStart', 'contentVisible'],
   components: {
     ChapterDetail
   },
   methods: {
     onClick: function () {
-      $('#modal'+ (this.contentVisible ? '' : 'scrap') + this.index).modal('show')
+      $('#modal'+ (this.contentVisible ? '' : 'scrap') + 'i' + this.index + 'd'+ this.date).modal('show')
     },
     onDS: function (ev) {
       console.log(ev)
       ev.dataTransfer.dropEffect = 'copy'
       ev.dataTransfer.effectAllowed = 'copy'
       ev.dataTransfer.setData('text/plain', ev.target.id)
-      this.onDragStart(this.index)
+      if(this.contentVisible){
+        this.onDragStart(this.date, this.index)
+      } else {
+        this.onDragStart(this.index)
+      }
       console.log(ev.dataTransfer)
     },
     onLeftClick: function () {
@@ -62,12 +66,12 @@ export default {
     },
     onMouseOver: function () {
       if(this.contentVisible){
-        $('#imageDimmer'+this.index).dimmer('show')
+        $('#imageDimmer'+'i'+this.index+'d'+this.date).dimmer('show')
       }
     },
     onMouseLeave: function () {
       if(this.contentVisible){
-        $('#imageDimmer'+this.index).dimmer('hide')
+        $('#imageDimmer'+'i'+this.index+'d'+this.date).dimmer('hide')
       }
     }
   },

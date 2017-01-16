@@ -3,7 +3,7 @@
     <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
       <ChapterAddDetail :date="date" :storageRef="storageRef" :chapter="chapter" :index="index" @saveNewChapter="onSaveNewChapter"></ChapterAddDetail>
       <div class="content">
-        <h3 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
+        <h3 class="ui header chapterlocation" v-if="this.newChapter.chapterLocation != '새로운 생성'">{{newChapter.chapterLocation}}</h2>
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
       </div>
       <div class="ui center aligned container"> 
@@ -68,7 +68,13 @@ export default {
   },
   data: function () {
     return {
-      newChapter: this.chapter,
+      newChapter: {
+        chapterKey: this.chapter.chapterKey,
+        chapterLocation: this.chapter.chapterLocation,
+        chapterPhotoList: [],
+        chapterDescription: '',
+        chapterTip: ''
+      },
       imageIndex: 0
     }
   },

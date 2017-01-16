@@ -132,71 +132,12 @@ export default {
         storyExpenseList: ['항공비: 50만원', '교통비: 20만원', '식사: 30만원'],
         storyTagList: ['#우정여행', '#둘이서', '#배낭여행', '#액티비티', '#역사여행', '#말트래킹', '#시안성벽', '#성벽자전거'],
         storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
+        chapterList: [
+        [{chapterLocation: '돈므앙 공항', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/don.JPG']}, {chapterLocation: '담넌사두억 수상시장', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/dam.png']}],
+        [{chapterLocation: '짜뚜짝 시장', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/jja.jpg']}, {chapterLocation: '카오산로드', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/kao.jpg']}, {chapterLocation: '하이야트', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/hyat.jpg']}],
+        [{chapterLocation: '파타야', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/pattaya.jpg', '/static/images/bangkok/pattaya2.jpg']}]
+        ],
         storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '너만 모르는 오사카',
-        storyDate: '2016/12/15 (5박6일)',
-        storyPhoto: '/static/images/japan.png',
-        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
-        storyName: '유느미느큐우'
-      },
-      {
-        storyTitle: '폴은 가수다?',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '사흘만에 대만정복',
-        storyDate: '2016/12/15 (2박3일)',
-        storyPhoto: '/static/images/taiwan.jpg',
-        chapterList: ['타오위안 공항', '스린야시장', '30년 노점', '타이페이101빌딩', '딘타이펑', '융캉제', '경극 공연', '용산사', '타이베이 중앙역'],
-        storyName: '윤민규'
-      },
-      {
-        storyTitle: '넌 방콕 나도 방콕',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '너만 모르는 오사카',
-        storyDate: '2016/12/15 (5박6일)',
-        storyPhoto: '/static/images/japan.png',
-        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
-        storyName: '유느미느큐우'
-      },
-      {
-        storyTitle: '방콕여행기',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '방콕말고 방콕가자',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPhoto: '/static/images/bangkok.jpg',
-        chapterList: ['돈므앙 공항', '담넌사두억 수상시장', '짜뚜짝 시장', '카오산로드', '하이야트 호텔', '파타야', '알카자쇼', '돈므앙 공항'],
-        storyName: 'Minkyu Yun'
-      },
-      {
-        storyTitle: '옷살까 오사카',
-        storyDate: '2016/12/15 (5박6일)',
-        storyPhoto: '/static/images/japan.png',
-        chapterList: ['유니버셜 스튜디오', '도톤보리', '오사카 성', '하라주쿠', '신주쿠', '기므미라지대'],
-        storyName: '유느미느큐우'
-      },
-      {
-        storyTitle: '싱가폴서 살아남기',
-        storyDate: '2016/12/15 (3박4일)',
-        storyPhoto: '/static/images/singapore.jpg',
-        chapterList: ['파크로얄 피커링 호텔', '가든 바이 더 베이', '유니버셜 스튜디오', '싱가폴 도심', '머라이언타워', '클라키', '마리나베이샌즈 야경', '주롱새파크', '보타닉 가든', '점보시푸드 레스토랑'],
-        storyName: '윤민규'
       }],
       scrapBookTest: [new Chapter()],
       draggingChapter: {},
@@ -222,9 +163,13 @@ export default {
         if (item.storyTitle.toLowerCase().indexOf(searchString) !== -1) {
           return item
         } else {
-          for (var chapter in item.chapterList) {
-            if (item.chapterList[chapter].toLowerCase().indexOf(searchString) !== -1) {
-              return item
+          for (var chapterDate in item.chapterList) {
+            console.log(item.chapterList[chapterDate])
+            for (var chapter in item.chapterList[chapterDate]) {
+              console.log(item.chapterList[chapterDate][chapter])
+              if (item.chapterList[chapterDate][chapter].chapterLocation.toLowerCase().indexOf(searchString) !== -1) {
+                return item
+              }
             }
           }
         }
@@ -273,9 +218,9 @@ export default {
       this.targetStory = this.myStories[index]
       this.currentView = 'Chapters'
     },
-    onScrapDragStart: function (index) {
+    onScrapDragStart: function (date, index) {
       console.log(index)
-      this.draggingChapter = this.chaptersTest[index]
+      this.draggingChapter = this.targetStory.chapterList[date][index]
       this.draggingFrom = 'Chapters'
     },
     onCreateStoryDragStart: function (index) {

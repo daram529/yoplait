@@ -1,10 +1,10 @@
 <template>
     <div class="storycard" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-        <div class="ui fluid card">
-            <div class="content" @click="onClick">
+        <div class="ui fluid card" @click="onClick">
+            <div class="content" >
               <div>
               <h3 class = "title">
-                {{story.storyTitle}}
+                {{story.storyName}}
               </h3>
               </div>
               <div>
@@ -32,7 +32,7 @@
               </ol>
             <div class="extra content">
               <div class="name">
-                {{story.storyName}}
+                {{story.userName}}
               </div>
             </div>
         </div>
