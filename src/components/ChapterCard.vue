@@ -6,7 +6,8 @@
       <div class="content" id="titleContent" v-on:click="onClick">
         <h3 class="ui header chapterlocation" href="#">{{chapter.chapterLocation}}</h2>
       </div>
-      <div v-if="contentVisible" class="ui center aligned container" v-on:click="onClick" id="temp"> 
+      <div v-if="contentVisible && chapter.chapterTip" class="ui center aligned container" v-on:click="onClick" id="temp"> 
+        <i class="idea icon"/>
         {{chapter.chapterTip}}
       </div>
       <div v-if="contentVisible" class="ui content" style="border:none;">

@@ -131,6 +131,9 @@ export default {
   position:relative;
   top:25%;
 }
+#userName:hover{
+  cursor: pointer;
+}
 
 </style>
 

@@ -17,7 +17,7 @@
               <ChapterCard id="scrapbookCard" v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
           </div>
         </div>
-      <div class="ui grey right corner label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
+        <div class="ui grey right corner label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
       </div>
     </main>
   </div>

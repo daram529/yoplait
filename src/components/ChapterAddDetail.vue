@@ -6,16 +6,27 @@
     <div class="ui hidden message" :id="'addModalMessaged' + date + 'i' + index">
       <p>Upload Done!</p>
     </div>
-    <div class="image content">
+    <div class="image content" id="image_content">
       <div class="ui medium images">
-        <img v-for="imgsrc in newChapter.chapterPhotoList" class="ui image" :src="imgsrc">
+        <Button id="button" class="ui left floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onLeftClick"><i class="angle left icon"/></Button>
+        <img v-for="(imgSrc, idx) in newChapter.chapterPhotoList" v-show="(idx == curImageIdx) || (idx == nextImageIdx)" class="ui image" :src="imgSrc">
+        <!--<img v-if="newChapter.chapterPhotoList" class="ui image" :src="newChapter.chapterPhotoList[curImageIdx]">
+        <img v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >= 2" class="ui image" :src="newChapter.chapterPhotoList[nextImageIdx]">-->
+        <Button id="button" class="ui right floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onRightClick"><i class="angle right icon"/></Button>
       </div>
     </div>
     <div class="content">
-      <div class="description">
-        <div class="ui header"><input v-model="newChapter.chapterLocation" type="text"></input></div>
-        <textarea v-model="newChapter.chapterDescription" :placeholder="this.chapter.chapterDescription"></textarea>
-        <textarea v-model="newChapter.chapterTip" :placeholder="this.chapter.chapterTip"></textarea>
+      <div class="ui form">
+        <div class="field"><label>어디를 다녀오셨나요?</label><input v-model="newChapter.chapterLocation" type="text"></input></div>
+
+        <div class="field">
+          <label>그 곳은 어떠셨나요?</label>
+          <textarea class="fluid" rows="3" v-model="newChapter.chapterDescription" :placeholder="this.chapter.chapterDescription"></textarea>
+        </div>
+        <div class="field">
+          <label>이 장소를 방문하는 다른 분을 위한 팁이 있다면 적어주세요.</label>
+          <textarea class="fluid" rows="2" v-model="newChapter.chapterTip" :placeholder="this.chapter.chapterTip"></textarea>
+        </div>
         <div>
           <label :for="'filed'+date+'i'+index" class="ui icon button">
                 <i class="file icon"></i>Open File</label>
@@ -43,20 +54,25 @@ export default {
         chapterTip: '',
         chapterPhotoList: [],
         chapterKey: this.chapter.chapterKey
-      }
+      },
+      imageIndex: 0
     }
   },
   computed: {
     curImageIdx: function () {
-      return (this.imageIndex % this.chapter.chapterPhotoList.length)
+      return ((this.imageIndex + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
+    },
+    nextImageIdx: function () {
+      return ((this.imageIndex + 1 + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
     }
   },
   methods: {
     onLeftClick: function () {
-      this.imageIndex -= 1
+      console.log(this)
+      this.imageIndex = (this.imageIndex - 1 + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length
     },
     onRightClick: function () {
-      this.imageIndex += 1
+      this.imageIndex = (this.imageIndex + 1) % this.newChapter.chapterPhotoList.length
     },
     /* eslint-disable */
     onOKClick: function () {
@@ -79,7 +95,10 @@ export default {
           console.log(uploadTask.snapshot.downloadURL)
           console.log('upload: i' + this.index + ' d' + this.date + 'current photos ' + this.newChapter.chapterPhotoList)
           this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
-          $('#addModalMessaged' + this.date + 'i' + this.index).show(500)
+          $('#addModalMessaged' + this.date + 'i' + this.index).show()
+          window.setTimeout( () => {
+            $('#addModalMessaged' + this.date + 'i' + this.index).hide()
+          }, 5000)
         })
       }.bind(this)
       console.log('upload: i' + this.index + ' d' + this.date)
@@ -93,3 +112,14 @@ export default {
   }
 }
 </script>
+
+<style>
+#button {
+  margin-top:80px;
+}
+
+#image_content {
+  width:90%;
+  margin:auto;
+}
+</style>
