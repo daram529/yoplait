@@ -297,8 +297,11 @@ export default {
         } else {
           currentStoryIDs.push(newStoryID)
         }
-        this.userRef.child('storyIDList').update(currentStoryIDs)
+        this.userRef.child('storyIDList').set(currentStoryIDs)
+        this.createStoryChapterList = [[]]
+        this.currentView = 'myStories'
       }.bind(this))
+      
     },
     onChangeDays: function (n) {
       console.log('onChangeDays:' + n)
