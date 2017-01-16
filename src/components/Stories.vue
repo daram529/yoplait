@@ -7,7 +7,7 @@
             <div class="row" id="test">
                 <h2 class="ui header">
                     <div class="content">
-                    전체 이야기
+                    {{whoseStory}}
                     </div>
                 </h2>
             </div>
@@ -68,7 +68,7 @@ export default {
       context: '#app'
     })
   },
-  props: ['storyList']
+  props: ['storyList', 'whoseStory']
 }
 
 </script>

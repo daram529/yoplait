@@ -12,7 +12,7 @@
           <div class="storyDate" style="color:gray; font-size:12px;" v-if="story.storyPeriod==1">
             {{story.storyDate}} 당일치기
           </div>
-          <div class="storyOwner" @click="$emit('otherStories', story.userID)" id="userName">
+          <div class="storyOwner" @click="$emit('otherStories', story.userID, story.userName)" id="userName">
             {{story.userName}}
           </div>
         </div>

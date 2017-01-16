@@ -3,11 +3,11 @@
     <BarMenu :filtered-stories = "filteredStories" v-model = "searchString" :current-view-change = "currentViewChange" :is-logged-in = "isLoggedIn" @logIn="onLoginClick" @logOut="onLogOutClick" :user-name="user.displayName" @myStories="currentView = 'myStories'"></BarMenu>
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
-        <Stories v-if="currentView == 'Stories'" v-on:storyView="onStoryView" :story-list="filteredStories"></Stories>
+        <Stories v-if="currentView == 'Stories'" :whose-story="whoseStory" v-on:storyView="onStoryView" :story-list="filteredStories"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" v-on:otherStories="otherStories" :story="targetStory" :on-drag-start="onScrapDragStart"></Chapters>
         <CreateStory v-else-if="currentView == 'CreateStory'" v-on:distanceChange="distanceChange" :storageRef="storageRef" :chapter-list="createStoryChapterList" @modifyChapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
-        <Stories v-else-if="currentView == 'myStories'" v-on:storyView="onMyStoryView" :story-list="myStories"></Stories>
-        <Stories v-else-if="currentView == 'otherStories'" v-on:storyView="onOtherStoryView" :story-list="otherstory"></Stories>
+        <Stories v-else-if="currentView == 'myStories'" :whose-story="whoseStory" v-on:storyView="onMyStoryView" :story-list="myStories"></Stories>
+        <Stories v-else-if="currentView == 'otherStories'" :whose-story="whoseStory" v-on:storyView="onOtherStoryView" :story-list="otherstory"></Stories>
         <div class="ui right rail" v-if="isLoggedIn">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui block header" style="padding-left:10px; margin-bottom:5px; background-color:#E0E0E0">
@@ -85,6 +85,7 @@ export default {
   },
   data: function () {
     return {
+      whoseStory: '전체 이야기',
       otherstory: [],
       storyDate: 0,
       searchString: '',
@@ -213,6 +214,7 @@ export default {
       return storiesArray
     },
     myStories: function () {
+      this.whoseStory = '나의 이야기'
       return this.stories.filter(function (item) {
         return item.userID === this.userToken
       }.bind(this))
@@ -234,7 +236,8 @@ export default {
       console.log('date'+date+'index'+index+value)
       this.createStoryChapterList[date][index].chapterDistance = value
     },
-    otherStories: function (otherUserID) {
+    otherStories: function (otherUserID, otherUserName) {
+      this.whoseStory = otherUserName + '의 이야기'
       console.log("on otherStories!")
       console.log(otherUserID)
       this.currentView='otherStories'
