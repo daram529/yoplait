@@ -4,59 +4,59 @@
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
           <h3 class="storyTitle">
-            방콕여행기
-            <!--{{story.storyTitle}}-->
+            <!--방콕여행기-->
+            {{story.storyName}}
           </h3>
           <div class="storyDate" style="color:gray; font-size:12px;">
-            2016/08/15 (2박3일)
-            <!--{{story.storyDate}} {{story.storyPeriod}}일-->
+            <!--2016/08/15 (2박3일)-->
+            {{story.storyDate}} ({{story.storyPeriod-1}}박{{story.storyPeriod}}일)
           </div>
           <div class="storyOwner">
-            Minkyu Yun
-            <!--{{story.userName}}-->
+            <!--Minkyu Yun-->
+            {{story.userName}}
           </div>
         </div>
         <div class="info_mid_left" id="storyPeople">
           <div class="storyPeople">
-            인원: 5명
-            <!--인원: {{story.storyPeople}}-->
+            <!--인원: 5명-->
+            인원: {{story.storyPeople}}
           </div>
         </div>
         <div class="info_mid_right" id="storyExpense">
           <h5 class="storyTotalExpense">
-            1인 총 여행경비: 150만원
-            <!--1인 총 여행경비: {{story.storyTotalExpense}}-->
+            <!--1인 총 여행경비: 150만원-->
+            1인 총 여행경비: {{story.storyTotalExpense}}
           </h5>
           <div class="ui list">
-            <!--<div class="item" v-for="expense in story.storyExpenseList">
+            <div class="item" v-for="expense in story.storyExpenseList">
               {{expesne}}
-            </div>-->
-            <div class="item">항공비: 50만원</div>
+            </div>
+            <!--<div class="item">항공비: 50만원</div>
             <div class="item">교통비: 20만원</div>
-            <div class="item">식사: 30만원</div>
+            <div class="item">식사: 30만원</div>-->
           </div>
         </div>
-        <div class="ui grid" id="storyTag">
+        <div class="ui grid" id="storyTag" style="color:#1A237E">
           <div class="eight wide column">
             <div class="ui list">
-              <!--<div class="item" v-for="(tag,index) in story.storyTagList" v-if="index % 2 == 0">
+              <div class="item" v-for="(tag,index) in story.storyTagList" v-if="index<4">
                 {{tag}}
-              </div>-->
-              <div class="item">#우정여행</div>
+              </div>
+              <!--<div class="item">#우정여행</div>
               <div class="item">#둘이서</div>
               <div class="item">#배낭여행</div>
-              <div class="item">#액티비티</div>
+              <div class="item">#액티비티</div>-->
             </div>
           </div>
           <div class="eight wide column">
             <div class="ui list">
-              <!--<div class="item" v-for="(tag,index) in story.storyTagList" v-if="index % 2 == 1">
+              <div class="item" v-for="(tag,index) in story.storyTagList" v-if="index>=4">
                 {{tag}}
-              </div>-->
-              <div class="item">#역사여행</div>
+              </div>
+              <!--<div class="item">#역사여행</div>
               <div class="item">#말트래킹</div>
               <div class="item">#시안성벽</div>
-              <div class="item">#자전거</div>
+              <div class="item">#자전거</div>-->
             </div>
           </div>
         </div>

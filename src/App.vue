@@ -44,7 +44,7 @@ const storyRef = db.ref('story')
 const usersRef = db.ref('users')
 
 let Chapter = function () {
-  this.chapterLocation = '새로운 생성'
+  this.chapterLocation = 'New Chapter'
   this.chapterDescription = ''
   this.chapterTip = ''
   this.chapterPhotoList = []
@@ -123,20 +123,19 @@ export default {
       storiesList: [{
         userID: 'adgaglalfjladskjfdsa',
         userName: 'Minkyu YUN',
-        storyTitle: '방에 콕콕콕',
-        storyDate: '2016/08/15 (2박3일)',
-        storyPeriod: '2박3일',
+        storyName: '방에 콕콕콕',
+        storyDate: '2016/08/15',
+        storyPeriod: 3,
         storyPeople: '2명',
         storyTotalExpense: '150만원',
         storyExpenseList: ['항공비: 50만원', '교통비: 20만원', '식사: 30만원'],
         storyTagList: ['#우정여행', '#둘이서', '#배낭여행', '#액티비티', '#역사여행', '#말트래킹', '#시안성벽', '#성벽자전거'],
         storyPhoto: '/static/images/bangkok.jpg',
         chapterList: [
-        [{chapterLocation: '돈므앙 공항', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/don.JPG']}, {chapterLocation: '담넌사두억 수상시장', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/dam.png']}],
+        [{chapterLocation: '돈므앙 공항', chapterDescription: '아이고 공항에 갔더니 밤이 다되고 사람들이 호객행위를 하고 택시를 타야되는데 어디서 타야되는지도 모르겠네~', chapterTip: '아이고 공항에 갔더니 밤이 다되고 사람들이 호객행위를 하고 택시를 타야되는데 어디서 타야되는지도 모르겠네~', chapterPhotoList: ['/static/images/bangkok/don.JPG']}, {chapterLocation: '담넌사두억 수상시장', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/dam.png']}],
         [{chapterLocation: '짜뚜짝 시장', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/jja.jpg']}, {chapterLocation: '카오산로드', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/kao.jpg']}, {chapterLocation: '하이야트', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/hyat.jpg']}],
         [{chapterLocation: '파타야', chapterDescription: '헬렐레', chapterTip: '심카드 사야함', chapterPhotoList: ['/static/images/bangkok/pattaya.jpg', '/static/images/bangkok/pattaya2.jpg']}]
-        ],
-        storyName: 'Minkyu Yun'
+        ]
       // },
       // {
       //   storyTitle: '너만 모르는 오사카',

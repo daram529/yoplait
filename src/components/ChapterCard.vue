@@ -3,25 +3,23 @@
     <!--fluid-->
     <div class="ui raised card" draggable="true" v-on:dragstart="onDS" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
       <ChapterDetail :chapter="chapter" :index="index" :date="date" :content-visible="contentVisible"></ChapterDetail>
-      <div class="content" id="titleContent">
-        <h3 class="ui header chapterlocation" href="#" v-on:click="onClick">{{chapter.chapterLocation}}</h2>
+      <div class="content" id="titleContent" v-on:click="onClick">
+        <h3 class="ui header chapterlocation" href="#">{{chapter.chapterLocation}}</h2>
       </div>
-      <div v-if="contentVisible" class="ui center aligned container"> 
-        {{chapter.chapterDescription}} 
+      <div v-if="contentVisible" class="ui center aligned container" v-on:click="onClick" id="temp"> 
+        {{chapter.chapterTip}}
       </div>
-      <div v-if="contentVisible" class="ui extra content">
-        <div class="ui segment">
-          <div class="ui dimmable small centered image">
-            <div class="ui image inverted dimmer" :id="'imageDimmer'+'i'+index+'d'+date">
-              <div class="content">
-                <div class="center">
-                  <div class="ui left floated icon button" v-if="chapter.chapterPhotoList.length>1" v-on:click="onLeftClick"><i class="angle left icon"/></div>
-                  <div class="ui right floated icon button" v-if="chapter.chapterPhotoList.length>1" v-on:click="onRightClick"><i class="angle right icon"/></div>
-                </div>
+      <div v-if="contentVisible" class="ui content" style="border:none;">
+        <div class="ui dimmable small centered image" :id="'imageDimmer'+'i'+index+'d'+date">
+          <div class="ui image inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <i class="left floated black large angle left icon" v-if="chapter.chapterPhotoList.length>1" v-on:click="onLeftClick"/>
+                <i class="right floated black large angle right icon"  v-if="chapter.chapterPhotoList.length>1" v-on:click="onRightClick"/>
               </div>
             </div>
-            <img v-if="this.chapter.chapterPhotoList" :src="this.chapter.chapterPhotoList[curImageIdx]">
           </div>
+          <img v-if="this.chapter.chapterPhotoList" :src="this.chapter.chapterPhotoList[curImageIdx]">
         </div>
       </div>
     </div>
@@ -29,7 +27,6 @@
 </template>
 
 <script>
-// import $ from 'jquery'
 /* eslint-disable */
 import ChapterDetail from './ChapterDetail'
 export default {
@@ -62,11 +59,13 @@ export default {
     },
     onMouseOver: function () {
       if(this.contentVisible){
+        // $('#imageDimmer'+'i'+this.index+'d'+this.date).stop().animate({opacity:0.5},100)
         $('#imageDimmer'+'i'+this.index+'d'+this.date).dimmer('show')
       }
     },
     onMouseLeave: function () {
       if(this.contentVisible){
+        // $('#imageDimmer'+'i'+this.index+'d'+this.date).stop().animate({opacity:1}, 100)
         $('#imageDimmer'+'i'+this.index+'d'+this.date).dimmer('hide')
       }
     }
@@ -81,17 +80,30 @@ export default {
   },
   /* eslint-disable */
   mounted: function () {
-    // $('#card'+this.index).on('hover', function () {
-    //   $('#imageDimmer'+this.index).dimmer({
-    //     on: 'hover'
-    //   })
-    // })
-
+    $('#imageDimmer'+'i'+this.index+'d'+this.date).dimmer({
+      opacity: 0.4
+    })
   }
 }
 </script>
 
 <style>
+.ui.card:hover {
+  /*border: 1px solid #C5CAE9;*/
+  cursor: pointer;
+}
+
+#temp {
+  /*-o-text-overflow: ellipsis;    Opera 
+  text-overflow:    ellipsis;    IE, Safari (WebKit) */
+  overflow:hidden;              /* don't show excess chars */
+  /*white-space:nowrap;            force single line */
+  width: 77%;                 /* fixed width */
+  line-height:1.2em;
+  max-height: 2.4em;
+  font-size:12px;
+}
+
 .dotted_line{
   content:"";
   top: 0;

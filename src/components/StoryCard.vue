@@ -1,10 +1,10 @@
 <template>
     <div class="storycard" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-        <div class="ui fluid card">
-            <div class="content" @click="onClick">
+        <div class="ui fluid card" @click="onClick">
+            <div class="content">
               <div>
               <h3 class = "title">
-                {{story.storyTitle}}
+                {{story.storyName}}
               </h3>
               </div>
               <div>
@@ -24,15 +24,17 @@
             </div>
             <div class="content" style="border:none;">
               <ol>
-                <li v-for="chapterDate in story.chapterList">
-                  <div v-for="chapter in chapterDate">
+                <template v-for="chapterDate in story.chapterList">
+                <li v-for="chapter in chapterDate">
                     {{chapter.chapterLocation}}
-                  </div>
                 </li>
+                </template>
               </ol>
+            </div>
             <div class="extra content">
               <div class="name">
-                {{story.storyName}}
+                <i class="user icon"></i>
+                {{story.userName}}
               </div>
             </div>
         </div>
