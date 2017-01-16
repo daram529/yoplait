@@ -15,7 +15,7 @@
       <div class="description">
         <div class="ui header"><input v-model="newChapter.chapterLocation" type="text"></input></div>
         <textarea v-model="newChapter.chapterDescription" :placeholder="this.chapter.chapterDescription"></textarea>
-        <textarea v-model="newChapter.chapterTips" :placeholder="this.chapter.chapterTip"></textarea>
+        <textarea v-model="newChapter.chapterTip" :placeholder="this.chapter.chapterTip"></textarea>
         <div>
           <label :for="'filed'+date+'i'+index" class="ui icon button">
                 <i class="file icon"></i>Open File</label>
