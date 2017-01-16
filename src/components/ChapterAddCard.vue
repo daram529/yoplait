@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     curImageIdx: function () {
-      return ((this.imageIndex + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length)
+      return ((this.imageIndex + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
     }
   },
   /* eslint-disable */

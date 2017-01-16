@@ -6,13 +6,13 @@
     <div class="ui hidden message" :id="'addModalMessaged' + date + 'i' + index">
       <p>Upload Done!</p>
     </div>
-    <div class="image content">
+    <div class="image content" id="image_content">
       <div class="ui medium images">
-        <Button class="ui icon button" @click="onLeftClick"><i class="angle left icon"/></Button>
-        <img v-for="(imgSrc, idx) in newChapter.chapterPhotoList" v-if="(idx == curImageIdx) || (idx == nextImageIdx)" class="ui image" :src="imgSrc">
+        <Button id="button" class="ui left floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onLeftClick"><i class="angle left icon"/></Button>
+        <img v-for="(imgSrc, idx) in newChapter.chapterPhotoList" v-show="(idx == curImageIdx) || (idx == nextImageIdx)" class="ui image" :src="imgSrc">
         <!--<img v-if="newChapter.chapterPhotoList" class="ui image" :src="newChapter.chapterPhotoList[curImageIdx]">
         <img v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >= 2" class="ui image" :src="newChapter.chapterPhotoList[nextImageIdx]">-->
-        <Button class="ui icon button" @click="onRightClick"><i class="angle right icon"/></Button>
+        <Button id="button" class="ui right floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onRightClick"><i class="angle right icon"/></Button>
       </div>
     </div>
     <div class="content">
@@ -112,3 +112,14 @@ export default {
   }
 }
 </script>
+
+<style>
+#button {
+  margin-top:80px;
+}
+
+#image_content {
+  width:90%;
+  margin:auto;
+}
+</style>
