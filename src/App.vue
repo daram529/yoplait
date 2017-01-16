@@ -16,8 +16,9 @@
               <ChapterCard id="scrapbookCard" v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
           </div>
           <Button class="ui button" v-on:click="currentView == 'Chapters' ? currentView = 'CreateStory' : currentView = 'Chapters'">임시버튼</Button>
+          
         </div>
-        <div class="ui red floated bottom left attached label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
+        
       </div>
     </main>
   </div>
