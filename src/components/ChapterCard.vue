@@ -7,7 +7,7 @@
         <h3 class="ui header chapterlocation" href="#">{{chapter.chapterLocation}}</h2>
       </div>
       <div v-if="contentVisible" class="ui center aligned container" v-on:click="onClick" id="temp"> 
-        {{chapter.chapterTips}}
+        {{chapter.chapterTip}}
       </div>
       <div v-if="contentVisible" class="ui content" style="border:none;">
         <div class="ui dimmable small centered image" :id="'imageDimmer'+'i'+index+'d'+date">

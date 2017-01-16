@@ -17,6 +17,7 @@
           </div>
           <Button class="ui button" v-on:click="currentView == 'Chapters' ? currentView = 'CreateStory' : currentView = 'Chapters'">임시버튼</Button>
         </div>
+        <div class="ui red floated bottom left attached label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
       </div>
     </main>
   </div>
@@ -246,6 +247,18 @@ export default {
       }
       this.draggingFrom = ''
     },
+    onScrapBookRemove: function (ev) {
+      ev.preventDefault();
+      console.log(ev)
+      console.log(ev.dataTransfer)
+      if((this.draggingFrom === 'Scrapbook') && (this.draggingChapter.chapterLocation !== 'New Chapter')){
+        let idx = this.scrapBookTest.indexOf(this.draggingChapter)
+        this.scrapBookTest.splice(idx, 1)
+        this.userRef.child('chapterList').set(this.scrapBookTest)
+        this.draggingChapter = {}
+      }
+      this.draggingFrom = ''
+    },
     onStoryView: function (index) {
       this.targetStory = this.filteredStories[index]
       this.currentView = 'Chapters'
@@ -369,7 +382,7 @@ export default {
 }
 
 #sticker {
-  height:90vh;
+  height: 100%;
   background:#ffffff;
   top:0px;
   border : 1px solid rgba(34,36,38,0.15);

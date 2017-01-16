@@ -23,7 +23,7 @@
                 </div>
               </div>
             </div>
-          <img v-if="this.chapter.chapterPhotoList" :src="this.chapter.chapterPhotoList[curImageIdx]">
+          <img v-if="this.newChapter.chapterPhotoList" :src="this.newChapter.chapterPhotoList[curImageIdx]">
         </div>
       </div>
     </div>
