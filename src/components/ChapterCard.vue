@@ -44,7 +44,11 @@ export default {
       ev.dataTransfer.dropEffect = 'copy'
       ev.dataTransfer.effectAllowed = 'copy'
       ev.dataTransfer.setData('text/plain', ev.target.id)
-      this.onDragStart(this.index)
+      if(this.contentVisible){
+        this.onDragStart(this.date, this.index)
+      } else {
+        this.onDragStart(this.index)
+      }
       console.log(ev.dataTransfer)
     },
     onLeftClick: function () {

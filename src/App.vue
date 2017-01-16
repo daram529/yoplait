@@ -7,7 +7,7 @@
         <Chapters v-else-if="currentView == 'Chapters'" :story="targetStory" :on-drag-start="onScrapDragStart"></Chapters>
         <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" @modifyChapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
         <Stories v-else-if="currentView == 'myStories'" v-on:storyView="onMyStoryView" :story-list="myStories"></Stories>
-        <div class="ui right rail">
+        <div class="ui right rail" v-if="isLoggedIn">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui block header" style="padding-left:10px; margin-bottom:5px; background-color:#E0E0E0">
              <i class="sticky note icon"></i>Scrapbook
@@ -48,20 +48,21 @@ let Chapter = function () {
   this.chapterDescription = ''
   this.chapterTip = ''
   this.chapterPhotoList = []
+  this.chapterKey = ''
 }
-let Story = function () {
-  this.userID = ''
-  this.userName = ''
-  this.storyName = ''
-  this.storyDate = ''
-  this.storyDuration = 0
-  this.storyTotalExpense = ''
-  this.storyExpenseList = []
-  this.storyTagList = []
-  this.storyType = ''
-  this.chapterList = []
-  this.storyPhoto = ''
-}
+// let Story = function () {
+//   this.userID = ''
+//   this.userName = ''
+//   this.storyName = ''
+//   this.storyDate = ''
+//   this.storyDuration = 0
+//   this.storyTotalExpense = ''
+//   this.storyExpenseList = []
+//   this.storyTagList = []
+//   this.storyType = ''
+//   this.chapterList = []
+//   this.storyPhoto = ''
+// }
 // let User = function () {
 //   this.userToken = ''
 //   this.storyIDList = []
@@ -279,15 +280,9 @@ export default {
       this.targetStory = this.myStories[index]
       this.currentView = 'Chapters'
     },
-    onCreateStoryDrop: function (ev) {
-      ev.preventDefault()
-      this.createStoryChapterList.push(this.draggingChapter)
-      this.draggingChapter = {}
-      this.draggingFrom = ''
-    },
-    onScrapDragStart: function (index) {
+    onScrapDragStart: function (date, index) {
       console.log(index)
-      this.draggingChapter = this.chaptersTest[index]
+      this.draggingChapter = this.targetStory.chapterList[date][index]
       this.draggingFrom = 'Chapters'
     },
     onCreateStoryDragStart: function (index) {
@@ -298,6 +293,7 @@ export default {
       this.chapterList = story.child('chapterList')
     },
     insertCreateStoryChapterList: function (n, index) {
+      this.draggingChapter.chapterKey =  Array(11).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 10)
       this.createStoryChapterList[n].splice(index, 0, this.draggingChapter)
       this.draggingChapter = {}
     },
@@ -326,28 +322,29 @@ export default {
       }.bind(this))
     },
     modifyCreateStoryChapter: function (chapter, index, date) {
+      console.log(date)
       this.createStoryChapterList[date].splice(index, 1, chapter)
     },
-    onSaveClick: function () {
-      let newStory = new Story()
+    onSaveClick: function (newStory) {
+      // let newStory = new Story()
       newStory.userID = this.userToken
       newStory.userName = this.user.displayName
-      newStory.storyName = document.getElementById('storyName').value
-      newStory.storyDate = document.getElementById('storyDate').value
-      newStory.storyDuration = document.getElementById('storyPeriod').value
-      newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
-      newStory.storyExpenseList = []
-      var n = 0
-      while (document.getElementById('storyExpense'+n)){
-        newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
-        n++
-      }
-      newStory.storyTagList = []
-      var n = 0
-      while (document.getElementById('storyTag'+n)){
-        newStory.storyTagList.push(document.getElementById('storyTag'+n).value)
-        n++
-      }
+      // newStory.storyName = document.getElementById('storyName').value
+      // newStory.storyDate = document.getElementById('storyDate').value
+      // newStory.storyDuration = document.getElementById('storyPeriod').value
+      // newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
+      // newStory.storyExpenseList = []
+      // var n = 0
+      // while (document.getElementById('storyExpense'+n)){
+      //   newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
+      //   n++
+      // }
+      // newStory.storyTagList = []
+      // var n = 0
+      // while (document.getElementById('storyTag'+n)){
+      //   newStory.storyTagList.push(document.getElementById('storyTag'+n).value)
+      //   n++
+      // }
       newStory.storyType = 'plan'
       newStory.chapterList = this.createStoryChapterList
       // newStory.storyPhoto = this.createStoryChapterList[0][0].chapterPhotoList[0]
@@ -362,8 +359,11 @@ export default {
         } else {
           currentStoryIDs.push(newStoryID)
         }
-        this.userRef.child('storyIDList').update(currentStoryIDs)
+        this.userRef.child('storyIDList').set(currentStoryIDs)
+        this.createStoryChapterList = [[]]
+        this.currentView = 'myStories'
       }.bind(this))
+      
     },
     onChangeDays: function (n) {
       console.log('onChangeDays:' + n)

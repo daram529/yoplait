@@ -29,7 +29,7 @@
           </h5>
           <div class="ui list">
             <div class="item" v-for="expense in story.storyExpenseList">
-              {{expesne}}
+              {{expense}}
             </div>
             <!--<div class="item">항공비: 50만원</div>
             <div class="item">교통비: 20만원</div>
