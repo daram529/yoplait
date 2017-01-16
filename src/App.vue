@@ -5,7 +5,7 @@
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" v-on:storyView="onStoryView" :story-list="filteredStories"></Stories>
         <Chapters v-else-if="currentView == 'Chapters'" :story="targetStory" :on-drag-start="onScrapDragStart"></Chapters>
-        <CreateStory v-else-if="currentView == 'CreateStory'" :storageRef="storageRef" :chapter-list="createStoryChapterList" @modifyChapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
+        <CreateStory v-else-if="currentView == 'CreateStory'" v-on:distanceChange="distanceChange" :storageRef="storageRef" :chapter-list="createStoryChapterList" @modifyChapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
         <Stories v-else-if="currentView == 'myStories'" v-on:storyView="onMyStoryView" :story-list="myStories"></Stories>
         <div class="ui right rail" v-if="isLoggedIn">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
@@ -49,6 +49,7 @@ let Chapter = function () {
   this.chapterTip = ''
   this.chapterPhotoList = []
   this.chapterKey = ''
+  this.chapterDistance = ''
 }
 // let Story = function () {
 //   this.userID = ''
@@ -227,6 +228,10 @@ export default {
     })
   },
   methods: {
+    distanceChange: function (date, index, value) {
+      console.log('date'+date+'index'+index+value)
+      this.createStoryChapterList[date][index].chapterDistance = value
+    },
     currentViewChange: function (currentView) {
       this.currentView = currentView
     },
@@ -310,11 +315,11 @@ export default {
       // newStory.storyDuration = document.getElementById('storyPeriod').value
       // newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
       // newStory.storyExpenseList = []
-      // var n = 0
-      // while (document.getElementById('storyExpense'+n)){
-      //   newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
-      //   n++
-      // }
+      var n = 0
+      while (document.getElementById('storyExpense'+n)){
+        newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
+        n++
+      }
       // newStory.storyTagList = []
       // var n = 0
       // while (document.getElementById('storyTag'+n)){
@@ -387,10 +392,7 @@ export default {
 /*scrapbook title*/
 #scrapbookCard h3{
   font-size: 16px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translateX(-50%) translateY(-50%);
+  padding-top:5px;
 }
 
 /*sracpbook card*/
