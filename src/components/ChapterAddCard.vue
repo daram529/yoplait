@@ -1,7 +1,7 @@
 <template>
   <div class="chapteraddcard">
     <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
-      <ChapterAddDetail :storageRef="storageRef" :chapter="chapter" :index="index" @saveNewChapter="onSaveNewChapter"></ChapterAddDetail>
+      <ChapterAddDetail :date="date" :storageRef="storageRef" :chapter="chapter" :index="index" @saveNewChapter="onSaveNewChapter"></ChapterAddDetail>
       <div class="content">
         <h3 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
@@ -15,7 +15,7 @@
       <div class="ui extra content">
         <div class="ui segment">
           <div class="ui dimmable medium image">
-            <div class="ui image inverted dimmer" :id="'imageDimmer'+index">
+            <div class="ui image inverted dimmer" :id="'imageDimmerd'+date+'i'+index">
               <div class="content">
                 <div class="center">
                   <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
@@ -35,13 +35,13 @@
 import ChapterAddDetail from './ChapterAddDetail'
 export default {
   name: 'chapteraddcard',
-  props: ['chapter', 'index', 'modifyChapter', 'storageRef'],
+  props: ['chapter', 'index', 'date', 'modifyChapter', 'storageRef'],
   components: {
     ChapterAddDetail
   },
   methods: {
     onClick: function () {
-      $('#addModal'+ this.index).modal('show')
+      $('#addModald'+ this.date + 'i' + this.index).modal('show')
     },
     onLeftClick: function () {
       console.log(this)
@@ -52,17 +52,18 @@ export default {
     },
     onMouseOver: function () {
       if(this.contentVisible){
-        $('#imageDimmer'+this.index).dimmer('show')
+        $('#imageDimmerd'+this.date+'i'+this.index).dimmer('show')
       }
     },
     onMouseLeave: function () {
       if(this.contentVisible){
-        $('#imageDimmer'+this.index).dimmer('hide')
+        $('#imageDimmerd'+this.date+'i'+this.index).dimmer('hide')
       }
     },
     onSaveNewChapter: function (chapter) {
       this.newChapter = chapter
-      this.$emit('modifyChapter', this.newChapter, this.index)
+      console.log(this.newChapter)
+      this.$emit('modifyChapter', this.newChapter, this.index, this.date)
     }
   },
   data: function () {

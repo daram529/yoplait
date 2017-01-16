@@ -48,6 +48,7 @@ let Chapter = function () {
   this.chapterDescription = ''
   this.chapterTip = ''
   this.chapterPhotoList = []
+  this.chapterKey = ''
 }
 let Story = function () {
   this.userID = ''
@@ -272,12 +273,6 @@ export default {
       this.targetStory = this.myStories[index]
       this.currentView = 'Chapters'
     },
-    onCreateStoryDrop: function (ev) {
-      ev.preventDefault()
-      this.createStoryChapterList.push(this.draggingChapter)
-      this.draggingChapter = {}
-      this.draggingFrom = ''
-    },
     onScrapDragStart: function (index) {
       console.log(index)
       this.draggingChapter = this.chaptersTest[index]
@@ -291,6 +286,7 @@ export default {
       this.chapterList = story.child('chapterList')
     },
     insertCreateStoryChapterList: function (n, index) {
+      this.draggingChapter.chapterKey =  Array(11).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 10)
       this.createStoryChapterList[n].splice(index, 0, this.draggingChapter)
       this.draggingChapter = {}
     },
@@ -319,6 +315,7 @@ export default {
       }.bind(this))
     },
     modifyCreateStoryChapter: function (chapter, index, date) {
+      console.log(date)
       this.createStoryChapterList[date].splice(index, 1, chapter)
     },
     onSaveClick: function () {

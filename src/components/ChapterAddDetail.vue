@@ -1,7 +1,10 @@
 <template>
-  <div class="ui modal" :id="'addModal' + index">
+  <div class="ui modal" :id="'addModald' + date + 'i' + index">
     <div class="header">
       Details
+    </div>
+    <div class="ui hidden message" :id="'addModalMessaged' + date + 'i' + index">
+      <p>Upload Done!</p>
     </div>
     <div class="image content">
       <div class="ui medium images">
@@ -14,10 +17,9 @@
         <textarea v-model="newChapter.chapterDescription" :placeholder="this.chapter.chapterDescription"></textarea>
         <textarea v-model="newChapter.chapterTips" :placeholder="this.chapter.chapterTip"></textarea>
         <div>
-          <label for="file" class="ui icon button">
-                <i class="file icon"></i>
-                Open File</label>
-          <input type="file" id="file" style="display:none" v-on:change="onFileChange">
+          <label :for="'filed'+date+'i'+index" class="ui icon button">
+                <i class="file icon"></i>Open File</label>
+          <input type="file" :id="'filed'+date+'i'+index" style="display:none" v-on:change="onFileChange">
         </div>
       </div>
     </div>
@@ -32,14 +34,15 @@
 <script>
 export default {
   name: 'chapteradddetail',
-  props: ['chapter', 'index', 'saveNewChapter', 'storageRef'],
+  props: ['chapter', 'index', 'date', 'saveNewChapter', 'storageRef'],
   data: function () {
     return {
       newChapter: {
         chapterLocation: this.chapter.chapterLocation,
         chapterDescription: '',
         chapterTip: '',
-        chapterPhotoList: []
+        chapterPhotoList: [],
+        chapterKey: this.chapter.chapterKey
       }
     }
   },
@@ -57,28 +60,31 @@ export default {
     },
     /* eslint-disable */
     onOKClick: function () {
+      console.log(this)
+      console.log('ChapterAddDetail: my date is '+this.date + ' my index is ' + this.index)
       this.$emit('saveNewChapter', this.newChapter)
-      $('#addModal' + this.index).modal('hide')
+      $('#addModald' + this.date + 'i' + this.index).modal('hide')
     },
     onFileChange: function (ev) {
       let files = ev.target.files || ev.dataTransfer.files
       console.log(files)
       let file = files[0]
+      console.log(this)
       let reader = new FileReader()
-      reader.onload = (e) => {
-        // console.log(e.target.result)
-        // this.newChapter.chapterPhotoList.push(e.target.result)
-      }
+      reader.onload = function () {
+        console.log('reader successful')
+        let uploadTask = this.storageRef.child('images/'+file.name).put(file)
+        uploadTask.on('state_changed', null, null, () => {
+          console.log(this)
+          console.log(uploadTask.snapshot.downloadURL)
+          console.log('upload: i' + this.index + ' d' + this.date + 'current photos ' + this.newChapter.chapterPhotoList)
+          this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
+          $('#addModalMessaged' + this.date + 'i' + this.index).show(500)
+        })
+      }.bind(this)
+      console.log('upload: i' + this.index + ' d' + this.date)
       reader.readAsDataURL(file)
-      let uploadTask = this.storageRef.child('images/'+file.name).put(file)
-      uploadTask.on('state_changed', function (snapshot) {
-        console.log(snapshot)
-      }, function (error) {
-        console.log(error)
-      }, function () {
-        console.log(uploadTask.snapshot.downloadURL)
-        this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
-      }.bind(this))
+      
     }
   },
   /* eslint-disable */
