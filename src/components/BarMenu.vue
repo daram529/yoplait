@@ -11,7 +11,10 @@
                 <i class="search icon"></i>
                 </div>
             </div>
-            <a class="two wide column item" v-on:click="currentViewChange('CreateStory')">
+            <a class="two wide column item" v-if="isLoggedIn" v-on:click="currentViewChange('CreateStory')">
+                여행 글 쓰러 가기
+            </a>
+            <a class="two wide column item" v-if="!isLoggedIn">
                 여행 글 쓰러 가기
             </a>
             <div class="two wide column right item">
