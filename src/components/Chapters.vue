@@ -62,35 +62,15 @@
         </div>
       </div>
       <div class="ui divider"></div>
-      <div class="five column row" id="chapterBoard" v-for="cList in story.chapterList">
-        <div class="column" id="column">
-          <ChapterCard v-for="(chapter, index) in cList" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-        </div>
-      </div>
-      <!--<div class="five column row" id="chapterBoard" v-for="n in (story.chapterList.length-1)/5+1">
       <div class="five column row" id="chapterBoard">
-        <div class="column" id="column">
-        <div class="column" id="column">
-          <div class="date"><p>1일차</p></div>
-          <template v-for="(chapter, index) in story.chapterList">
-          <ChapterCard :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-          <ChapterCard v-for="(chapter, index) in story.chapterList[n*5 - 5]" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-          <div class="dottedLine" v-if="index!=story.chapterList.length-1"><p>도보 30분</p></div>
+        <div class="column" id="column" v-for="(cList,date) in story.chapterList">
+          <div class="date">{{date+1}}일차</div>
+          <template v-for="(chapter, index) in cList">
+          <ChapterCard :date="date" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
+          <div class="dottedLine" v-if="index!=cList.length-1"><p>도보 30분</p></div>
           </template>
         </div>
-        <div class="column" id="column">
-          <ChapterCard v-for="(chapter, index) in story.chapterList[n*5-4]" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-        </div>
-        <div class="column" id="column">
-          <ChapterCard v-for="(chapter, index) in story.chapterList[n*5-3]" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-        </div>
-        <div class="column" id="column">
-          <ChapterCard v-for="(chapter, index) in story.chapterList[n*5-2]" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-        </div>
-        <div class="column" id="column">
-          <ChapterCard v-for="(chapter, index) in story.chapterList[n*5-1]" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-        </div>
-      </div>-->
+      </div>
     </div>
   </div>
 </template>
@@ -98,6 +78,11 @@
 import ChapterCard from './ChapterCard'
 export default {
   name: 'chapters',
+  data: function () {
+    return {
+      // rowNumber: int (this.story.chapterList.length/5)
+    }
+  },
   components: {
     ChapterCard
   },

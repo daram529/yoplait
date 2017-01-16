@@ -18,7 +18,9 @@
         <div class="info_mid_right" id="storyExpense">
           <div class="ui mini input" style="width:180px;"><input id="storyTotalExpense" placeholder="1인 총 여행경비(ex: 150만원)"></input></div>
           <div class="ui list" v-for="(input, index) in inputList">
-            <div class="ui mini input" v-model=inputList[index] v-on:keyup.enter="newInput($event.target.value, index)" v-on:keyup.delete="deleteInput($event.target.value, index)"><input :id="'storyExpense'+index" placeholder="경비(ex: 항공권:50만원)"></input></div>
+            <div class="ui mini input" v-model=inputList[index] v-on:keyup.enter="newInput($event.target.value, index)" v-on:keyup.delete="deleteInput($event.target.value, index)">
+            <input :id="'storyExpense'+index" placeholder="경비(ex: 항공권:50만원)"></input>
+            </div>
           </div>
         </div>
         <div class="ui grid" id="storyTag">

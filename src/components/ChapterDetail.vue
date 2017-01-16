@@ -1,5 +1,5 @@
 <template>
-  <div class="ui modal" :id= "'modal' + (contentVisible ? '' : 'scrap') + index">
+  <div class="ui modal" :id= "'modal' + (contentVisible ? '' : 'scrap') + 'i' + index + 'd' + date">
     <!--<i class="close icon"></i>-->
     <div class="header">
       Details
@@ -34,7 +34,7 @@
 <script>
 export default {
   name: 'chapterdetail',
-  props: ['chapter', 'index', 'contentVisible'],
+  props: ['chapter', 'index', 'contentVisible', 'date'],
   data: function () {
     return {imageIndex: 0}
   },
