@@ -47,12 +47,16 @@
       </div>
       <div class="ui divider"></div>
       <div class="five column row" id="chapterBoard">
-        <div class="column" id="column" v-for="(cList,date) in story.chapterList">
-          <!--<div class="ui red ribbon label" >{{date+1}}일차</div>-->
-          <div class="ui large blue tag label" style="margin-bottom:10px;">{{date+1}}일차</div>
+        <div class="column" id="column" v-for="(cList,date) in story.chapterList" style="padding-bottom:50px;">
+          <h3 class="ui header" style="padding-left:10px; margin-bottom:5px;">
+            <i class="calendar outline icon"></i>
+            <div class="content">
+              {{date+1}}일차
+            </div>
+          </h3>
           <template v-for="(chapter, index) in cList">
           <ChapterCard :date="date" :index="index" :chapter="chapter" :key="chapter['chapterLocation']" :on-drag-start="onDragStart" :content-visible="true"></ChapterCard>
-          <div class="dottedLine" v-if="index!=cList.length-1"><p>도보 30분</p></div>
+          <div class="dottedLine" v-if="index!=cList.length-1"><p>{{chapter.chapterDistance}}</p></div>
           </template>
         </div>
       </div>

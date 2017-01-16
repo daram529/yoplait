@@ -37,12 +37,17 @@
       <div class="ui divider"></div>
       <div class="five column row" id="chapterBoard">
         <div class="column" v-for="(cList, date) in chapterList" :key="date">
-          <h5 class="ui header">{{date + 1}} 일차</h5>
+          <h3 class="ui header" style="padding-left:10px; margin-bottom:5px;">
+            <i class="calendar outline icon"></i>
+            <div class="content">
+              {{date+1}}일차
+            </div>
+          </h3>
           <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, 0)"><i class="ui plus icon"/></div>
           <template v-for="(chapter, index) in cList">
             {{date + 'Hello' + index}}
             <ChapterAddCard :index="index" :date="date" :chapter="chapter" :storageRef="storageRef" @modifyChapter="onModifyChapter" :key="chapter.chapterKey"></ChapterAddCard>
-            <div v-if="index!=cList.length-1" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
+            <div v-if="index!=cList.length-1" @input="$emit('distanceChange', date, index, $event.target.value)" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
             <div v-else class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)" ><i class="ui plus icon"/></div>
           </template>
         </div>
