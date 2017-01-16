@@ -2,14 +2,16 @@
   <div class="chapteraddcard">
     <div class="ui fluid raised card" v-on:mouseover="onMouseOver" v-on:mouseleave="onMouseLeave">
       <ChapterAddDetail :date="date" :storageRef="storageRef" :chapter="chapter" :index="index" @saveNewChapter="onSaveNewChapter"></ChapterAddDetail>
-      <div class="content">
-        <h3 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h2>
+      <div class="content" style="padding-left:5px; padding-right:5px;" v-on:click="onClick">
+        <h3 class="ui header chapterlocation">{{newChapter.chapterLocation}}</h3>
+      </div>
+      <div class="content" style="border:0; padding-top:0;" v-on:click="onClick">
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
       </div>
-      <div class="ui center aligned container"> 
-        {{newChapter.chapterDescription}} 
+      <div class="ui center aligned container" v-on:click="onClick"> 
+        {{newChapter.chapterDescription}}
       </div>
-      <div class="ui center aligned container"> 
+      <div class="ui center aligned container" v-on:click="onClick"> 
         {{newChapter.chapterTip}} 
       </div>
       <div class="ui extra content">
@@ -80,7 +82,7 @@ export default {
   },
   computed: {
     curImageIdx: function () {
-      return ((this.imageIndex + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length)
+      return ((this.imageIndex + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
     }
   },
   /* eslint-disable */

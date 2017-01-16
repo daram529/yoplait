@@ -6,20 +6,23 @@
           <h3 class="storyTitle">
             <i class="thailand flag"></i>{{story.storyName}}
           </h3>
-          <div class="storyDate" style="color:gray; font-size:12px;">
+          <div class="storyDate" style="color:gray; font-size:12px;" v-if="story.storyPeriod!=1">
             {{story.storyDate}} ({{story.storyPeriod-1}}박{{story.storyPeriod}}일)
           </div>
-          <div class="storyOwner">
+          <div class="storyDate" style="color:gray; font-size:12px;" v-if="story.storyPeriod==1">
+            {{story.storyDate}} 당일치기
+          </div>
+          <div class="storyOwner" @click="$emit('otherStories', story.userID)" id="userName">
             {{story.userName}}
           </div>
         </div>
         <div class="info_mid_left" id="storyPeople">
-          <div class="storyPeople">
+          <div class="storyPeople" v-if="story.storyPeople">
             인원: {{story.storyPeople}}
           </div>
         </div>
         <div class="info_mid_right" id="storyExpense">
-          <h5 class="storyTotalExpense">
+          <h5 class="storyTotalExpense" v-if="story.storyTotalExpense">
             1인 총 여행경비: {{story.storyTotalExpense}}
           </h5>
           <div class="ui list">
@@ -28,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="ui grid" id="storyTag" style="color:#1A237E">
+        <div class="ui grid" id="storyTag" style="color:#1A237E" v-if="story.storyTagList[0]">
           <div class="eight wide column">
             <div class="ui list">
               <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index<4" style="margin-bottom:5px;">
@@ -48,7 +51,7 @@
       <div class="ui divider"></div>
       <div class="five column row" id="chapterBoard">
         <div class="column" id="column" v-for="(cList,date) in story.chapterList" style="padding-bottom:50px;">
-          <h3 class="ui header" style="padding-left:10px; margin-bottom:5px;">
+          <h3 class="ui header" style="padding-left:10px; margin-bottom:10px;">
             <i class="calendar outline icon"></i>
             <div class="content">
               {{date+1}}일차
@@ -75,7 +78,7 @@ export default {
   components: {
     ChapterCard
   },
-  props: ['story', 'onDragStart']
+  props: ['story', 'onDragStart', 'otherStories']
   // props: ['chapterList', 'onDragStart', 'story']
 }
 </script>

@@ -3,17 +3,23 @@
     <div class="ui relaxed padded full grid">
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
-          <div class="ui medium input"> <input type="text" v-model="newStory.storyName" id="storyName" placeholder="여행기 제목"></div>
+          <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyName" id="storyName" placeholder="여행기 제목"></div>
           <div class="storyDate" style="font-size:12px;">
-            <div class="ui small input"> <input id="storyDate" v-model="newStory.storyDate" placeholder="여행 날짜(ex:2016/08/15)"></div>
+            <div class="ui small input" style="padding-bottom:10px;"> <input id="storyDate" v-model="newStory.storyDate" placeholder="여행 날짜(ex:2016/08/15)"></div>
             <div class="ui action icon input">
               <input v-model="newStory.storyPeriod" id="storyPeriod" v-on:keyup.enter="$emit('changeDays', newStory.storyPeriod)" placeholder="총 여행 일(ex:3)"></input>
               <button class="ui mini icon button" @click="$emit('changeDays', newStory.storyPeriod)"><i class="pointing up icon"/></Button>
             </div>
           </div>
         </div>
-        <div class="info_mid_left" id="storyPeople">
-          <div class="ui mini input"><input id="storyPeople" v-model="newStory.storyPeople" placeholder="총 인원수(ex:5명)"></input></div>
+        <div class="info_mid_left" id="storyPeople" style="padding-right:50px;">
+          <div class="ui mini input" style="padding-bottom:10px;"><input id="storyPeople" v-model="newStory.storyPeople" placeholder="총 인원수(ex:5명)"></input></div>
+          <div id="upload">
+            <label for="file" class="ui icon button">
+              <i class="file icon"></i>Select StoryPhoto</label>
+            <input type="file" id="file" style="display:none" v-on:change="onFileChange">
+            <div class="ui pointing label" v-if="newStory.storyPhoto">{{image}}</div>
+          </div>
         </div>
         <div class="info_mid_right" id="storyExpense">
           <div class="ui mini input" style="width:180px;"><input id="storyTotalExpense" v-model="newStory.storyTotalExpense" placeholder="1인 총 여행경비(ex: 150만원)"></input></div>
@@ -45,7 +51,6 @@
           </h3>
           <div class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, 0)"><i class="ui plus icon"/></div>
           <template v-for="(chapter, index) in cList">
-            {{date + 'Hello' + index}}
             <ChapterAddCard :index="index" :date="date" :chapter="chapter" :storageRef="storageRef" @modifyChapter="onModifyChapter" :key="chapter.chapterKey"></ChapterAddCard>
             <div v-if="index!=cList.length-1" @input="$emit('distanceChange', date, index, $event.target.value)" class="dottedLine" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)"><input></input></div>
             <div v-else class="ui horizontal divider" v-on:dragover.prevent v-on:drop="$emit('createStoryDrop', date, index + 1)" ><i class="ui plus icon"/></div>
@@ -64,6 +69,7 @@ export default {
   name: 'createstory',
   data: function () {
     return {
+      image: '',
       newStory: {
         storyName: '',
         storyPeriod: '',
@@ -72,7 +78,8 @@ export default {
         storyTotalExpense: '',
         storyExpenseList:[''],
         storyTagList:[''],
-        storyType: ''
+        storyType: '',
+        storyPhoto: ''
       }
     }
   },
@@ -81,6 +88,19 @@ export default {
   },
   props: ['chapterList', 'storageRef'],
   methods: {
+    onFileChange(ev) {
+      let files = ev.target.files || ev.dataTransfer.files
+      let file = files[0]
+      this.image = file.name
+      let reader = new FileReader()
+      reader.onload = function () {
+        let uploadTask = this.storageRef.child('images/'+file.name).put(file)
+        uploadTask.on('state_changed', null, null, () => {
+          this.newStory.storyPhoto=uploadTask.snapshot.downloadURL
+        })
+      }.bind(this)
+      reader.readAsDataURL(file)
+    },
     newInput: function(value, index) {
       if (value!="" && index == this.newStory.storyExpenseList.length-1){
         this.newStory.storyExpenseList.push('')
@@ -160,5 +180,15 @@ export default {
   top:20%;
   width:100%;
   margin-left:5px;
+}
+
+#upload {
+  text-align: left;
+}
+#hey {
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
 }
 </style>

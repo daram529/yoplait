@@ -4,9 +4,10 @@
     <main class="ui container" id="content">
       <div class="ui segment" id="two">
         <Stories v-if="currentView == 'Stories'" v-on:storyView="onStoryView" :story-list="filteredStories"></Stories>
-        <Chapters v-else-if="currentView == 'Chapters'" :story="targetStory" :on-drag-start="onScrapDragStart"></Chapters>
+        <Chapters v-else-if="currentView == 'Chapters'" v-on:otherStories="otherStories" :story="targetStory" :on-drag-start="onScrapDragStart"></Chapters>
         <CreateStory v-else-if="currentView == 'CreateStory'" v-on:distanceChange="distanceChange" :storageRef="storageRef" :chapter-list="createStoryChapterList" @modifyChapter="modifyCreateStoryChapter" v-on:createStoryDrop="insertCreateStoryChapterList" v-on:saveStory="onSaveClick" v-on:changeDays="onChangeDays"></CreateStory>
         <Stories v-else-if="currentView == 'myStories'" v-on:storyView="onMyStoryView" :story-list="myStories"></Stories>
+        <Stories v-else-if="currentView == 'otherStories'" v-on:storyView="onOtherStoryView" :story-list="otherstory"></Stories>
         <div class="ui right rail" v-if="isLoggedIn">
           <div class="ui sticky segment" id="sticker" v-on:dragover.prevent v-on:drop="onScrapBookDrop">
            <h3 class="ui block header" style="padding-left:10px; margin-bottom:5px; background-color:#E0E0E0">
@@ -15,9 +16,8 @@
            <div class="ui container" id="stickerContent">
               <ChapterCard id="scrapbookCard" v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
           </div>
-          <Button class="ui button" v-on:click="currentView == 'Chapters' ? currentView = 'CreateStory' : currentView = 'Chapters'">임시버튼</Button>
         </div>
-        <div class="ui red floated bottom left attached label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
+      <div class="ui grey right corner label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
       </div>
     </main>
   </div>
@@ -85,6 +85,7 @@ export default {
   },
   data: function () {
     return {
+      otherstory: [],
       storyDate: 0,
       searchString: '',
       currentView: 'Stories',
@@ -233,6 +234,16 @@ export default {
       console.log('date'+date+'index'+index+value)
       this.createStoryChapterList[date][index].chapterDistance = value
     },
+    otherStories: function (otherUserID) {
+      console.log("on otherStories!")
+      console.log(otherUserID)
+      this.currentView='otherStories'
+      this.otherstory = this.stories.filter(function (item) {
+        if (item.userID === otherUserID){
+          return item
+        }
+      })
+    },
     currentViewChange: function (currentView) {
       this.currentView = currentView
     },
@@ -253,7 +264,10 @@ export default {
       console.log(ev.dataTransfer)
       if((this.draggingFrom === 'Scrapbook') && (this.draggingChapter.chapterLocation !== 'New Chapter')){
         let idx = this.scrapBookTest.indexOf(this.draggingChapter)
+        console.log('idx'+idx)
+        console.log('scrapbookTest'+this.scrapBookTest)
         this.scrapBookTest.splice(idx, 1)
+        console.log('afterScrapbookTest'+this.scrapBookTest)
         this.userRef.child('chapterList').set(this.scrapBookTest)
         this.draggingChapter = {}
       }
@@ -265,6 +279,11 @@ export default {
     },
     onMyStoryView: function (index) {
       console.log('onMyStoryView!!')
+      this.targetStory = this.myStories[index]
+      this.currentView = 'Chapters'
+    },
+    onOtherStoryView: function (index) {
+      console.log('onOtherStoryView!!')
       this.targetStory = this.myStories[index]
       this.currentView = 'Chapters'
     },
@@ -388,6 +407,11 @@ export default {
   border : 1px solid rgba(34,36,38,0.15);
   border-radius: 5px;
   background-image:url("/static/images/bangkok.jpg");
+}
+
+.ui.rail {
+  height: 100%;
+  min-height: 800px;
 }
 
 /*collection of scrapbook items*/
