@@ -52,7 +52,7 @@ export default {
   methods: {
     onLeftClick: function () {
       console.log(this)
-      if (this.imageIndex > 1) {
+      if (this.imageIndex > 0) {
         this.imageIndex -= 1
       }
     },
