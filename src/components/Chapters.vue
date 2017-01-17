@@ -4,7 +4,7 @@
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
           <h3 class="storyTitle">
-            <i :class="[story.storyCountry]" class="flag"></i>{{story.storyName}}
+            <i v-if="story.storyCountry" :class="[story.storyCountry.toLowerCase()]" class="flag"></i>{{story.storyName}}
           </h3>
           <div class="storyDate" style="color:gray; font-size:12px;" v-if="story.storyPeriod!=1">
             {{story.storyDate}} ({{story.storyPeriod-1}}박{{story.storyPeriod}}일)

@@ -4,7 +4,7 @@
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
           <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyName" id="storyName" placeholder="여행기 제목"></div>
-          <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyCountry" id="storyName" placeholder="나라(영어 소문자)"></div>
+          <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyCountry" id="storyCountry" placeholder="나라(영어로)"></div>
           <div class="storyDate" style="font-size:12px;">
             <div class="ui small input" style="padding-bottom:10px;"> <input id="storyDate" v-model="newStory.storyDate" placeholder="여행 날짜(ex:2016/08/15)"></div>
             <div class="ui action icon input">
