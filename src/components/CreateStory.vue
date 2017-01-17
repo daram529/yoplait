@@ -19,8 +19,8 @@
             <label for="file" class="ui icon button">
               <i class="file icon"></i>Select StoryPhoto</label>
             <input type="file" id="file" style="display:none" v-on:change="onFileChange">
-            <div class="ui pointing label" v-if="newStory.storyPhoto">{{image}}</div>
           </div>
+          <div class="ui pointing label" v-if="image">{{image}}</div>
         </div>
         <div class="info_mid_right" id="storyExpense">
           <div class="ui mini input" style="width:180px;"><input id="storyTotalExpense" v-model="newStory.storyTotalExpense" placeholder="1인 총 여행경비(ex: 150만원)"></input></div>
@@ -80,7 +80,6 @@ export default {
         storyExpenseList:[''],
         storyTagList:[''],
         storyType: '',
-        storyPhoto: '',
         storyCountry: ''
       }
     }

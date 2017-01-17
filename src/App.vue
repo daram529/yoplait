@@ -24,7 +24,6 @@
 </template>
 
 <script>
-// import $ from 'jquery'
 import firebase from 'firebase'
 import BarMenu from './components/BarMenu'
 import Chapters from './components/Chapters'
@@ -52,24 +51,6 @@ let Chapter = function () {
   this.chapterKey = ''
   this.chapterDistance = ''
 }
-// let Story = function () {
-//   this.userID = ''
-//   this.userName = ''
-//   this.storyName = ''
-//   this.storyDate = ''
-//   this.storyDuration = 0
-//   this.storyTotalExpense = ''
-//   this.storyExpenseList = []
-//   this.storyTagList = []
-//   this.storyType = ''
-//   this.chapterList = []
-//   this.storyPhoto = ''
-// }
-// let User = function () {
-//   this.userToken = ''
-//   this.storyIDList = []
-//   this.chapterList = []
-// }
 export default {
   name: 'app',
   components: {
@@ -464,8 +445,10 @@ export default {
 body {
   flex: 1 0 auto;
   display: flex;
-  height: 90vh;
+  /*height: 90vh;*/
   background-color: #f2f2f2;
+  /*background: url("/static/images/background/background6.jpg") no-repeat center center fixed;
+  background-size:cover;*/
   flex-direction: column;
 }
 </style>
