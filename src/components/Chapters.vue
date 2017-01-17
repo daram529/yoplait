@@ -32,16 +32,16 @@
           </div>
         </div>
         <div class="ui grid" id="storyTag" style="color:#1A237E" v-if="story.storyTagList[0]">
-          <div class="eight wide column">
+          <div class="eight wide column" style="padding-right:0px;">
             <div class="ui list">
-              <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index<4" style="margin-bottom:5px;">
+              <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index<4" style="margin-bottom:5px; padding-right:10px; padding-left:10px;">
                 {{tag}}
               </div>
             </div>
           </div>
-          <div class="eight wide column">
+          <div class="eight wide column" style="padding-right:0px;">
             <div class="ui list">
-              <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index>=4" style="margin-bottom:5px;">
+              <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index>=4" style="margin-bottom:5px; padding-right:10px; padding-left:10px;">
                 {{tag}}
               </div>
             </div>
@@ -93,9 +93,17 @@ export default {
   padding-right:21px;
 }
 
-#storyTitle, #storyPeople, #storyExpense, #storyTag {
+#storyTitle, #storyPeople {
   width : 25%;
   text-align: left;
+}
+
+#storyExpense {
+  width: 20%;
+}
+
+#storyTag {
+  width: 30%
 }
 
 #chapterBoard{

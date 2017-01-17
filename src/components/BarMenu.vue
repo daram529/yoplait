@@ -2,10 +2,10 @@
     <div class="barmenu">
         <!--top fixed-->
         <div class="ui grid huge inverted top fixed menu">
-            <a class="one wide column item" v-on:click="currentViewChange('Stories')">
-                <img src="/static/images/yogurt4.png"/> 요플레
+            <a class="two wide column item" v-on:click="currentViewChange('Stories')">
+                <img src="/static/images/yogurt4.png"/>요플레
             </a>
-            <div class="eleven wide column item">
+            <div class="ten wide column item">
                 <div class="ui fluid left icon input">
                 <input type="text" :value="value" @input="$emit('input', $event.target.value)" placeholder="Search...">
                 <i class="search icon"></i>
