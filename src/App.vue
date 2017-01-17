@@ -15,10 +15,11 @@
             <h3 class="ui block header" style="border:3px; padding-left:10px; margin-bottom:5px; background-color:#E0E0E0">
               <i class="sticky note icon"></i>Scrapbook
             </h3>
-            <div class="ui grey right corner label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i class="trash icon"/></div>
             <div class="ui context" id="stickerContent">
               <ChapterCard id="scrapbookCard" v-for="(ch, idx) in scrapBookTest" :chapter="ch" :index="idx" :content-visible="false" :on-drag-start="onCreateStoryDragStart"></ChapterCard>
             </div>
+            <div id="footer" class="ui red huge icon label" v-on:dragover.prevent v-on:drop="onScrapBookRemove"><i style="padding-left: 10px;"class="trash icon"/></div>
+          </div>
         </div>
       </div>
     </main>
@@ -159,7 +160,7 @@ export default {
       ev.preventDefault();
       console.log(ev)
       console.log(ev.dataTransfer)
-      if(this.draggingFrom !== 'Scrapbook'){
+      if(this.draggingFrom !== 'Scrapbook' && this.draggingFrom!=''){
         this.scrapBookTest.push(this.draggingChapter)
         this.userRef.child('chapterList').set(this.scrapBookTest)
         this.draggingChapter = {}
@@ -312,7 +313,7 @@ export default {
   height: 80vh;
   background:#ffffff;
   top:72px;
-  width:14%;
+  width: 250px;
   /*border : 1px solid rgba(34,36,38,0.15);*/
   border-radius: 5px;
   overflow: hidden;
@@ -366,6 +367,14 @@ export default {
   padding:0px;
   border:0;
   box-shadow: none;
+}
+
+#footer{
+  position:fixed;
+  height:40px;
+  bottom:0px;
+  right:75px;
+  margin-bottom:0px;
 }
 
 body {
