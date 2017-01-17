@@ -4,23 +4,23 @@
       <div class="row" id="storyInfo">
         <div class="info_left" id="storyTitle">
           <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyName" id="storyName" placeholder="여행기 제목"></div>
-          <div class="ui medium input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyCountry" id="storyCountry" placeholder="나라(영어로)"></div>
           <div class="storyDate" style="font-size:12px;">
             <div class="ui small input" style="padding-bottom:10px;"> <input id="storyDate" v-model="newStory.storyDate" placeholder="여행 날짜(ex:2016/08/15)"></div>
-            <div class="ui action icon input">
+            <div class="ui action icon mini input">
               <input v-model="newStory.storyPeriod" id="storyPeriod" v-on:keyup.enter="$emit('changeDays', newStory.storyPeriod)" placeholder="총 여행 일(ex:3)"></input>
               <button class="ui mini icon button" @click="$emit('changeDays', newStory.storyPeriod)"><i class="pointing up icon"/></Button>
             </div>
           </div>
         </div>
         <div class="info_mid_left" id="storyPeople" style="padding-right:50px;">
+          <div class="ui mini input" style="padding-bottom:10px;"> <input type="text" v-model="newStory.storyCountry" id="storyCountry" placeholder="나라(영어로)"></div>
           <div class="ui mini input" style="padding-bottom:10px;"><input id="storyPeople" v-model="newStory.storyPeople" placeholder="총 인원수(ex:5명)"></input></div>
           <div id="upload">
-            <label for="file" class="ui icon button">
+            <label id="fileUploadButton" for="file" class="ui icon button">
               <i class="file icon"></i>Select StoryPhoto</label>
             <input type="file" id="file" style="display:none" v-on:change="onFileChange">
           </div>
-          <div class="ui pointing label" v-if="image">{{image}}</div>
+          <!--<div class="ui pointing label" v-if="image">{{image}}</div>-->
         </div>
         <div class="info_mid_right" id="storyExpense">
           <div class="ui mini input" style="width:180px;"><input id="storyTotalExpense" v-model="newStory.storyTotalExpense" placeholder="1인 총 여행경비(ex: 150만원)"></input></div>
@@ -99,6 +99,7 @@ export default {
         uploadTask.on('state_changed', null, null, () => {
           this.newStory.storyPhoto = uploadTask.snapshot.downloadURL
         })
+        $('#fileUploadButton').addClass('blue')
       }.bind(this)
       reader.readAsDataURL(file)
     },

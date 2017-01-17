@@ -69,12 +69,12 @@ export default {
   methods: {
     onLeftClick: function () {
       console.log(this)
-      if (this.imageIndex > 1) {
+      if (this.imageIndex > 0) {
         this.imageIndex -= 1
       }
     },
     onRightClick: function () {
-      if (this.imageIndex < this.newChapter.chapterPhotoList - 2) {
+      if (this.imageIndex < this.newChapter.chapterPhotoList.length - 2) {
         this.imageIndex += 1
       }
     },

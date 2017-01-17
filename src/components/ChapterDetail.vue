@@ -57,7 +57,7 @@ export default {
       }
     },
     onRightClick: function () {
-      if (this.imageIndex < this.chapter.chapterPhotoList - 2) {
+      if (this.imageIndex < this.chapter.chapterPhotoList.length - 2) {
         this.imageIndex += 1
       }
     }
