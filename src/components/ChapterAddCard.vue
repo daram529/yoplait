@@ -15,7 +15,7 @@
       <div class="ui extra content">
         <div class="ui segment">
           <div class="ui dimmable medium image">
-            <div class="ui image inverted dimmer" :id="'imageDimmerd'+date+'i'+index">
+            <div class="ui image inverted dimmer" :id="'imageDimmer'+newChapter.chapterKey">
               <div class="content">
                 <div class="center">
                   <div class="ui left floated icon button" v-on:click="onLeftClick"><i class="angle left icon"/></div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     onClick: function () {
-      $('#addModald'+ this.date + 'i' + this.index).modal('show')
+      $('#addModal'+this.newChapter.chapterKey).modal('show')
     },
     onLeftClick: function () {
       console.log(this)
@@ -52,12 +52,12 @@ export default {
     },
     onMouseOver: function () {
       if(this.contentVisible){
-        $('#imageDimmerd'+this.date+'i'+this.index).dimmer('show')
+        $('#imageDimmer'+this.newChapter.chapterKey).dimmer('show')
       }
     },
     onMouseLeave: function () {
       if(this.contentVisible){
-        $('#imageDimmerd'+this.date+'i'+this.index).dimmer('hide')
+        $('#imageDimmer'+this.newChapter.chapterKey).dimmer('hide')
       }
     },
     onSaveNewChapter: function (chapter) {

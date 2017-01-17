@@ -1,15 +1,15 @@
 <template>
-  <div class="ui modal" :id="'addModald' + date + 'i' + index">
+  <div class="ui modal" :id="'addModal'+newChapter.chapterKey">
     <div class="header">
       Details
     </div>
-    <div class="ui hidden message" :id="'addModalMessaged' + date + 'i' + index">
+    <div class="ui hidden message" :id="'addModalMessaged'+newChapter.chapterKey">
       <p>Upload Done!</p>
     </div>
     <div class="image content" id="image_content">
       <div class="ui medium images">
         <Button id="button" class="ui left floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onLeftClick"><i class="angle left icon"/></Button>
-        <img v-for="(imgSrc, idx) in newChapter.chapterPhotoList" v-show="(idx == curImageIdx) || (idx == nextImageIdx)" class="ui image" :src="imgSrc">
+        <img v-for="(imgSrc, idx) in newChapter.chapterPhotoList" v-show="(idx == curImageIdx) || (idx == nextImageIdx)" class="ui image" :src="imgSrc" style="max-height:200px; width:auto;">
         <!--<img v-if="newChapter.chapterPhotoList" class="ui image" :src="newChapter.chapterPhotoList[curImageIdx]">
         <img v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >= 2" class="ui image" :src="newChapter.chapterPhotoList[nextImageIdx]">-->
         <Button id="button" class="ui right floated icon huge button" v-if="newChapter.chapterPhotoList && newChapter.chapterPhotoList.length >2" @click="onRightClick"><i class="angle right icon"/></Button>
@@ -28,15 +28,15 @@
           <textarea class="fluid" rows="2" v-model="newChapter.chapterTip" :placeholder="this.chapter.chapterTip"></textarea>
         </div>
         <div>
-          <label :for="'filed'+date+'i'+index" class="ui icon button">
+          <label :for="'file'+newChapter.chapterKey" class="ui icon button">
                 <i class="file icon"></i>Open File</label>
-          <input type="file" :id="'filed'+date+'i'+index" style="display:none" v-on:change="onFileChange">
+          <input type="file" :id="'file'+newChapter.chapterKey" style="display:none" v-on:change="onFileChange">
         </div>
       </div>
     </div>
     <div class="actions">
-      <div class="ui green right labeled icon button" v-on:click="onOKClick">
-        OK
+      <div class="ui positive right labeled icon button" v-on:click="onOKClick">
+        Commit
         <i class="checkmark icon"></i>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
       console.log(this)
       console.log('ChapterAddDetail: my date is '+this.date + ' my index is ' + this.index)
       this.$emit('saveNewChapter', this.newChapter)
-      $('#addModald' + this.date + 'i' + this.index).modal('hide')
+      $('#addModal'+this.newChapter.chapterKey).modal('hide')
     },
     onFileChange: function (ev) {
       let files = ev.target.files || ev.dataTransfer.files
@@ -100,10 +100,12 @@ export default {
           console.log(uploadTask.snapshot.downloadURL)
           console.log('upload: i' + this.index + ' d' + this.date + 'current photos ' + this.newChapter.chapterPhotoList)
           this.newChapter.chapterPhotoList.push(uploadTask.snapshot.downloadURL)
-          $('#addModalMessaged' + this.date + 'i' + this.index).show()
+          $('#addModalMessage'+this.newChapter.chapterKey).show()
           window.setTimeout( () => {
-            $('#addModalMessaged' + this.date + 'i' + this.index).hide()
+            $('#addModalMessage'+this.newChapter.chapterKey).hide()
           }, 5000)
+          // $('#addModal'+this.newChapter.chapterKey).modal('refresh')
+
         })
       }.bind(this)
       console.log('upload: i' + this.index + ' d' + this.date)
