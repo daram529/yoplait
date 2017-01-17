@@ -8,11 +8,9 @@
       <div class="content" style="border:0; padding-top:0;" v-on:click="onClick">
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
       </div>
-      <div class="ui center aligned container" v-on:click="onClick"> 
-        {{newChapter.chapterDescription}}
-      </div>
-      <div class="ui center aligned container" v-on:click="onClick"> 
-        {{newChapter.chapterTip}} 
+      <div class="ui center aligned container" v-if="chapter.chapterTip" v-on:click="onClick" id="temp">
+        <i class="idea icon"/>
+        {{newChapter.chapterTip}}
       </div>
       <div class="ui extra content">
         <div class="ui segment">
@@ -92,3 +90,15 @@ export default {
 }
 </script>
 
+<style>
+#temp {
+  /*-o-text-overflow: ellipsis;    Opera 
+  text-overflow:    ellipsis;    IE, Safari (WebKit) */
+  overflow:hidden;              /* don't show excess chars */
+  /*white-space:nowrap;            force single line */
+  width: 77%;                 /* fixed width */
+  line-height:1.2em;
+  max-height: 2.4em;
+  font-size:12px;
+}
+</style>

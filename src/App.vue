@@ -229,6 +229,7 @@ export default {
       })
     },
     currentViewChange: function (currentView) {
+      this.whoseStory = '전체 이야기'
       this.currentView = currentView
     },
     onScrapBookDrop: function (ev) {
