@@ -43,18 +43,23 @@ export default {
   },
   computed: {
     curImageIdx: function () {
-      return ((this.imageIndex + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length)
+      return this.imageIndex
     },
     nextImageIdx: function () {
-      return ((this.imageIndex + 1 + this.chapter.chapterPhotoList.length) % this.chapter.chapterPhotoList.length)
+      return this.imageIndex + 1
     }
   },
   methods: {
     onLeftClick: function () {
-      this.imageIndex -= 1
+      console.log(this)
+      if (this.imageIndex > 1) {
+        this.imageIndex -= 1
+      }
     },
     onRightClick: function () {
-      this.imageIndex += 1
+      if (this.imageIndex < this.chapter.chapterPhotoList - 2) {
+        this.imageIndex += 1
+      }
     }
   },
   /* eslint-disable */

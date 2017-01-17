@@ -60,19 +60,23 @@ export default {
   },
   computed: {
     curImageIdx: function () {
-      return ((this.imageIndex + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
+      return this.imageIndex
     },
     nextImageIdx: function () {
-      return ((this.imageIndex + 1 + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length)
+      return this.imageIndex + 1
     }
   },
   methods: {
     onLeftClick: function () {
       console.log(this)
-      this.imageIndex = (this.imageIndex - 1 + this.newChapter.chapterPhotoList.length) % this.newChapter.chapterPhotoList.length
+      if (this.imageIndex > 1) {
+        this.imageIndex -= 1
+      }
     },
     onRightClick: function () {
-      this.imageIndex = (this.imageIndex + 1) % this.newChapter.chapterPhotoList.length
+      if (this.imageIndex < this.newChapter.chapterPhotoList - 2) {
+        this.imageIndex += 1
+      }
     },
     /* eslint-disable */
     onOKClick: function () {
@@ -89,7 +93,8 @@ export default {
       let reader = new FileReader()
       reader.onload = function () {
         console.log('reader successful')
-        let uploadTask = this.storageRef.child('images/'+file.name).put(file)
+        let randomName = Array(11).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 10)
+        let uploadTask = this.storageRef.child('images/'+randomName).put(file)
         uploadTask.on('state_changed', null, null, () => {
           console.log(this)
           console.log(uploadTask.snapshot.downloadURL)

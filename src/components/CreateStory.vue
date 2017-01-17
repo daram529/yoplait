@@ -93,12 +93,12 @@ export default {
     onFileChange(ev) {
       let files = ev.target.files || ev.dataTransfer.files
       let file = files[0]
-      this.image = file.name
+      this.image = Array(11).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 10)
       let reader = new FileReader()
       reader.onload = function () {
-        let uploadTask = this.storageRef.child('images/'+file.name).put(file)
+        let uploadTask = this.storageRef.child('images/'+this.image).put(file)
         uploadTask.on('state_changed', null, null, () => {
-          this.newStory.storyPhoto=uploadTask.snapshot.downloadURL
+          this.newStory.storyPhoto = uploadTask.snapshot.downloadURL
         })
       }.bind(this)
       reader.readAsDataURL(file)
