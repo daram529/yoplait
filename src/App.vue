@@ -332,11 +332,11 @@ export default {
       // newStory.storyDuration = document.getElementById('storyPeriod').value
       // newStory.storyTotalExpense = document.getElementById('storyTotalExpense').value
       // newStory.storyExpenseList = []
-      var n = 0
-      while (document.getElementById('storyExpense'+n)){
-        newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
-        n++
-      }
+      // var n = 0
+      // while (document.getElementById('storyExpense'+n)){
+      //   newStory.storyExpenseList.push(document.getElementById('storyExpense'+n).value)
+      //   n++
+      // }
       // newStory.storyTagList = []
       // var n = 0
       // while (document.getElementById('storyTag'+n)){
