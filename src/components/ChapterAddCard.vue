@@ -8,7 +8,7 @@
       <div class="content" style="border:0; padding-top:0;" v-on:click="onClick">
         <button class="ui basic icon button" v-on:click="onClick"><i class="edit icon"/></button>
       </div>
-      <div class="ui center aligned container" v-if="chapter.chapterTip" v-on:click="onClick" id="temp">
+      <div class="ui center aligned container" v-if="chapter.chapterTip!=''" v-on:click="onClick" id="temp">
         <i class="idea icon"/>
         {{newChapter.chapterTip}}
       </div>

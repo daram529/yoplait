@@ -41,7 +41,7 @@
           </div>
           <div class="eight wide column">
             <div class="ui list">
-              <div class="item" v-for="(tag,index) in story.storyTagList" v-if="index>=4">
+              <div class="ui small grey tag label" v-for="(tag,index) in story.storyTagList" v-if="index>=4" style="margin-bottom:5px;">
                 {{tag}}
               </div>
             </div>
